@@ -156,7 +156,7 @@ def cartView(request, restaurant):
             'name': restaurant.name,
             'currency': restaurant.get_currency_display(),
             'image': restaurant.imageURL,
-            'slug': restaurant.slug
+            'slug': restaurant.slug,
         }
 
         try:
@@ -164,17 +164,22 @@ def cartView(request, restaurant):
             customer = Customer.objects.get(device=device)
             order = Order.objects.get(customer=customer, restaurant=restaurant, complete=False)
             all_products = order.get_order_products
+            delivery = 0
             product_list = {}
 
             for item in all_products:
                 quantity = item.quantity
                 if quantity > 0:
                     item_name = str(quantity) + ' x ' + item.product.name
-                    print(item_name) 
                     product_list[item_name] = item.product.price * quantity
 
+            if order.is_delivery and restaurant.delivery_price > 0:
+                delivery = restaurant.delivery_price
+                context['delivery'] = restaurant.delivery_price
+
             context['products'] = product_list
-            context['total'] = order.get_cart_total
+            context['total'] = order.get_cart_total + delivery
+            context['orderId'] = order.id
 
         except:
             print('pass')
@@ -183,6 +188,20 @@ def cartView(request, restaurant):
 
     except Restaurant.DoesNotExist:
         return redirect('home')
+
+
+def addDeliveryView(request):
+    
+    if request.POST:
+        orderId = request.POST.get('orderId')
+        order = Order.objects.get(id=orderId)
+        order.is_delivery = True
+        order.save()
+
+        delivery_price = order.restaurant.delivery_price
+        orderTotal = order.get_cart_total + delivery_price
+
+        return JsonResponse({'price': delivery_price, 'total': orderTotal}, status=200)
 
 
 

@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restaurant View Template</title>
+    <title>Mi pedido | Localito</title>
 
     <!-- Bulma -->
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
@@ -20,6 +20,8 @@
     <link rel="stylesheet" href={% static 'css/restaurant.css' %}>
 
     <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
 
 </head>
 
@@ -38,7 +40,8 @@
 
                 <h1 class="title is-4">
                     {{ name }}
-                </h1>         
+                </h1>
+
             </div>
         </div>
     </section>
@@ -60,9 +63,9 @@
     </div>
 
     <!-- Delivery selection -->
-    <div class="columns is-mobile is-variable is-1-mobile has-text-centered">
+    <div id="order-details" class="columns is-mobile is-variable is-1-mobile has-text-centered" data-order-id="{{ orderId }}">
         <div class="column">
-            <a class="button is-small is-rounded is-success">
+            <a id="is-delivery" class="button is-small is-rounded is-success">
                 <span class="icon">
                     <i class="fas fa-motorcycle"></i>
                 </span>
@@ -71,7 +74,7 @@
                 </span>
             </a>
         </div>
-        <div class="column">
+        <div id="is-pickup" class="column">
             <a class="button is-small is-rounded">
                 <span class="icon">
                     <i class="fas fa-shopping-basket"></i>
@@ -94,26 +97,43 @@
                     <!-- Table of items -->
                         <table class="table is-fullwidth">
                             <tbody>
-
                                 {% autoescape off %}
                                 {% for product, price in products.items %}
                                 
                                     <tr>
                                         <td>{{ product }}</td>
-                                        <td>{{ currency }}{{ price }}</td>
+                                        <td align="right">{{ currency }}{{ price }}</td>
                                     </tr>
 
                                 {% endfor %}
 
+                                
+                                {% if delivery %}
+                                <tr id='delivery-price'>
+                                    <td>Envío a domicilio</td>
+                                    <td align="right">{{ currency }}{{ delivery }}</td>
+                                </tr>
+                                
+                                {% else %}
+
+                                <tr id='delivery-column' class='is-hidden'>
+                                    <td>Envío a domicilio</td>
+                                    <td id='delivery-price' align="right">{{ currency }}{{ delivery }}</td>
+                                </tr>
+
+                                {% endif %}
+                                    
+
                                 <tfoot class="has-text-weight-bold">
                                     <td>Total</td>
-                                    <td>{{ currency }}{{ total }}</td>
+                                    <td id="cart-total" align="right">{{ currency }}{{ total }}</td>
                                 </tfoot>
                                 {% endautoescape %}
 
                             </tbody>
                         </table>
                     <!-- End Table items  -->
+
                         <a class="button is-fullwidth is-rounded is-success">
                             <span class="icon">
                                 <i class="fas fa-check-circle"></i>
@@ -139,10 +159,48 @@
     <section class="has-text-centered py-5">
         Powered by Localito
     </section>
-<!-- 
-    <script src="restaurant.js"></script> -->
+
+    <!-- <script src="restaurant.js"></script> -->
 
 </body>
+
+<footer>
+
+    <script>
+
+        $(document).ready(function() {
+            let orderId = $('#order-details').attr('data-order-id');
+            let csrf_token = '{{ csrf_token }}';
+            let currency = $('html').attr('data-currency');
+
+            $('#is-delivery').click(function(e) {
+                $.ajax({
+                    url: '{% url "addDelivery" %}',
+                    data : {
+                        'orderId': orderId,
+                        'csrfmiddlewaretoken': csrf_token,
+                    },
+                    type: 'post',
+                    success: function(response) {
+                        $(this).addClass('is-success');
+                        $('#delivery-column').removeClass('is-hidden');
+                        $('#delivery-price').html('<td>Envío a domicilio</td><td align="right">'+ currency + response.price +'</td>')
+                        $('#cart-total').text(currency + response.total);
+                    },
+                });
+            });
+            
+            $('#is-pickup').click(function(e){
+
+                
+
+            });
+
+        });
+
+    </script>
+
+</footer>
 
 
 </html>

@@ -315,9 +315,9 @@
         $(document).ready(function() {
             
             let store = $('html').attr('data-slug');
-            let csrf_token = '{{ csrf_token }}'
-            let currency = $('html').attr('data-currency')
-            let device = getCookie('device')
+            let csrf_token = '{{ csrf_token }}';
+            let currency = $('html').attr('data-currency');
+            let device = getCookie('device');
 
             // Check if order is set
             $.ajax({

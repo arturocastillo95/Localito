@@ -22,6 +22,7 @@ from restaurants.views import (
     updateOrderView,
     setOrderView,
     cartView,
+    addDeliveryView,
 )
 
 from pagemanager.views import homeScreenView
@@ -37,7 +38,8 @@ urlpatterns = [
     path('ajax/newitemorder', newItemOrderView, name='newItemOrder'),
     path('ajax/updateorder', updateOrderView, name='updateOrder'),
     path('ajax/setorder', setOrderView, name='setOrder'),
-    path('<str:restaurant>/cart', cartView, name='cart')
+    path('ajax/add-delivery', addDeliveryView, name='addDelivery'),
+    path('<str:restaurant>/cart/', cartView, name='cart')
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

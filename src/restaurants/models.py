@@ -16,6 +16,7 @@ class Restaurant(models.Model):
     business_hours          = models.CharField(max_length=30, blank=True)
     image                   = models.ImageField(upload_to='restaurant-images', verbose_name='Logo de Restaurante', blank=True)
     about                   = models.TextField(max_length=300, blank=True)
+    delivery_price          = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
     whatsapp_number         = PhoneNumberField(blank=True)
     facebook_url            = models.URLField(max_length=60, blank=True, verbose_name="Link de Facebook")
     instagram_url           = models.URLField(max_length=60, blank=True, verbose_name="Link de Instagram")
