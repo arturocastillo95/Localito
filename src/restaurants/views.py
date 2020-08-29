@@ -204,7 +204,17 @@ def addDeliveryView(request):
         return JsonResponse({'price': delivery_price, 'total': orderTotal}, status=200)
 
 
+def removeDeliveryView(request):
+    
+    if request.POST:
+        orderId = request.POST.get('orderId')
+        order = Order.objects.get(id=orderId)
+        order.is_delivery = False
+        order.save()
 
+        orderTotal = order.get_cart_total
+
+        return JsonResponse({'total': orderTotal}, status=200)
 
         
 

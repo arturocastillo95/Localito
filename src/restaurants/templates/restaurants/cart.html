@@ -65,7 +65,13 @@
     <!-- Delivery selection -->
     <div id="order-details" class="columns is-mobile is-variable is-1-mobile has-text-centered" data-order-id="{{ orderId }}">
         <div class="column">
+            
+            {% if delivery %}
             <a id="is-delivery" class="button is-small is-rounded is-success">
+            {% else %}
+            <a id="is-delivery" class="button is-small is-rounded">
+            {% endif %}
+                
                 <span class="icon">
                     <i class="fas fa-motorcycle"></i>
                 </span>
@@ -73,9 +79,17 @@
                     Enviar a domicilio
                 </span>
             </a>
+
         </div>
-        <div id="is-pickup" class="column">
-            <a class="button is-small is-rounded">
+
+        <div class="column">
+
+            {% if delivery %}
+            <a id="is-pickup" class="button is-small is-rounded">
+            {% else %}
+            <a id="is-pickup" class="button is-small is-rounded is-success">
+            {% endif %}
+            
                 <span class="icon">
                     <i class="fas fa-shopping-basket"></i>
                 </span>
@@ -83,6 +97,7 @@
                     Recoger en la tienda
                 </span>
             </a>
+
         </div>
 
     </div>
@@ -116,9 +131,8 @@
                                 
                                 {% else %}
 
-                                <tr id='delivery-column' class='is-hidden'>
-                                    <td>Envío a domicilio</td>
-                                    <td id='delivery-price' align="right">{{ currency }}{{ delivery }}</td>
+                                <tr id='delivery-price'>
+
                                 </tr>
 
                                 {% endif %}
@@ -182,8 +196,8 @@
                     },
                     type: 'post',
                     success: function(response) {
-                        $(this).addClass('is-success');
-                        $('#delivery-column').removeClass('is-hidden');
+                        $('#is-delivery').addClass('is-success');
+                        $('#is-pickup').removeClass('is-success');
                         $('#delivery-price').html('<td>Envío a domicilio</td><td align="right">'+ currency + response.price +'</td>')
                         $('#cart-total').text(currency + response.total);
                     },
@@ -191,8 +205,20 @@
             });
             
             $('#is-pickup').click(function(e){
-
-                
+                $.ajax({
+                    url: '{% url "removeDelivery" %}',
+                    data : {
+                        'orderId': orderId,
+                        'csrfmiddlewaretoken': csrf_token,
+                    },
+                    type: 'post',
+                    success: function(response) {
+                        $('#is-pickup').addClass('is-success');
+                        $('#is-delivery').removeClass('is-success');
+                        $('#delivery-price').html('')
+                        $('#cart-total').text(currency + response.total);
+                    },
+                });
 
             });
 
