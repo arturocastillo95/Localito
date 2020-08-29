@@ -1,0 +1,148 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+{% autoescape off %}
+<html lang="en" data-slug={{ slug }} data-currency={{ currency }}>
+{% endautoescape %}
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant View Template</title>
+
+    <!-- Bulma -->
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css">
+
+    <!-- Style -->
+    <link rel="stylesheet" href={% static 'css/restaurant.css' %}>
+
+    <!-- Scripts -->
+
+</head>
+
+<body>
+
+    <!-- Header section -->
+    <section class="hero is-primary has-text-centered is-small">
+        <div class="hero-body ">
+            <div class="container">
+
+                {% if image %}
+                    <img src={{ image }} alt="" class="restaurant-img mb-2">
+                {% else %}
+                    <img src={% static 'images/logo-restaurant-default.jpg' %} alt="" class="restaurant-img mb-3">
+                {% endif %}
+
+                <h1 class="title is-4">
+                    {{ name }}
+                </h1>         
+            </div>
+        </div>
+    </section>
+    <!-- End Header section -->
+
+    <div class="container has-text-centered py-4 ">
+        <div class="columns is-mobile is-vcentered">
+            <div class="column">
+                <span class="icon is-medium">
+                    <i class="fas fa-receipt"></i>
+                </span>
+                <span>
+                    <h2 class="subtitle is-4">
+                        Detalles de tu pedido
+                    </h2>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delivery selection -->
+    <div class="columns is-mobile is-variable is-1-mobile has-text-centered">
+        <div class="column">
+            <a class="button is-small is-rounded is-success">
+                <span class="icon">
+                    <i class="fas fa-motorcycle"></i>
+                </span>
+                <span>
+                    Enviar a domicilio
+                </span>
+            </a>
+        </div>
+        <div class="column">
+            <a class="button is-small is-rounded">
+                <span class="icon">
+                    <i class="fas fa-shopping-basket"></i>
+                </span>
+                <span>
+                    Recoger en la tienda
+                </span>
+            </a>
+        </div>
+
+    </div>
+
+
+    <section class="info is-medium is-fullheight">
+        <div class="container">
+            <div class="column is-10 is-offset-1">
+
+                <div class="card">
+                    <div class="card-content">
+                    <!-- Table of items -->
+                        <table class="table is-fullwidth">
+                            <tbody>
+
+                                {% autoescape off %}
+                                {% for product, price in products.items %}
+                                
+                                    <tr>
+                                        <td>{{ product }}</td>
+                                        <td>{{ currency }}{{ price }}</td>
+                                    </tr>
+
+                                {% endfor %}
+
+                                <tfoot class="has-text-weight-bold">
+                                    <td>Total</td>
+                                    <td>{{ currency }}{{ total }}</td>
+                                </tfoot>
+                                {% endautoescape %}
+
+                            </tbody>
+                        </table>
+                    <!-- End Table items  -->
+                        <a class="button is-fullwidth is-rounded is-success">
+                            <span class="icon">
+                                <i class="fas fa-check-circle"></i>
+                            </span>
+                            <span>Realizar pedido</span>
+                        </a>
+                        <a href="{% url 'restaurant' slug %}" class="button is-fullwidth is-rounded is-warning mt-4">
+                            <span class="icon">
+                                <i class="fas fa-undo-alt"></i>
+                            </span>
+                            <span>Volver a la tienda</span>
+                        </a>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Localito watermark -->
+    <section class="has-text-centered py-5">
+        Powered by Localito
+    </section>
+<!-- 
+    <script src="restaurant.js"></script> -->
+
+</body>
+
+
+</html>

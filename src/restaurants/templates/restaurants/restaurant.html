@@ -63,28 +63,30 @@
 <body>
 
     <!-- Cart Button -->
-    <a class="fixed-button checkout-shadow">
+    <div class="fixed-button checkout-shadow">
 
-        <nav id="active-cart" class="level inner is-mobile is-hidden">
-            <div class="level-right has-text-centered">
-                <p id="item-count" class="has-text-weight-bold">
-                    1
-                </p>
-            </div>
-            <div class="level-item">
-                <span class="icon">
-                    <i class="fas fa-shopping-cart"></i>
-                </span>
-                <span class="is-size-6 has-text-weight-bold has-text-centered">
-                    &nbsp;&nbsp;Ver mi pedido
-                </span>
-            </div>
-            <div class="level-left has-text-centered">
-                <p id="cart-total" class="has-text-weight-bold">
-                    $135.00
-                </p>
-            </div>
-        </nav>
+        <a href="{% url 'cart' slug %}">
+            <nav id="active-cart" class="level inner is-mobile is-hidden">
+                <div class="level-right has-text-centered">
+                    <p id="item-count" class="has-text-weight-bold">
+                        1
+                    </p>
+                </div>
+                <div class="level-item">
+                    <span class="icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </span>
+                    <span class="is-size-6 has-text-weight-bold has-text-centered">
+                        &nbsp;&nbsp;Ver mi pedido
+                    </span>
+                </div>
+                <div class="level-left has-text-centered">
+                    <p id="cart-total" class="has-text-weight-bold">
+                        $0.00
+                    </p>
+                </div>
+            </nav>
+        </a>
 
         <nav id="off-cart" class="level inner is-mobile">
             <div class="level-item">
@@ -97,7 +99,7 @@
             </div>
         </nav>
 
-    </a>
+    </div>
     <!-- End Cart Button -->
 
 
@@ -423,7 +425,6 @@
                 });
 
             });
-
 
         });
     </script>

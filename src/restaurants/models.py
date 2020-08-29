@@ -41,6 +41,14 @@ class Restaurant(models.Model):
         if self.country:
             address += ', ' + self.country
         return address
+    
+    @property
+    def imageURL(self):
+        try:
+            url = self.image.url    
+        except:
+            url = False
+        return url
 
 class Section(models.Model):
     restaurant              = models.ForeignKey(Restaurant, default=None, on_delete=models.CASCADE, blank=True)
@@ -76,6 +84,7 @@ class Order(models.Model):
     restaurant              = models.ForeignKey(Restaurant,on_delete=models.SET_NULL, blank=True, null=True)
     date_ordered            = models.DateTimeField(auto_now_add=True)
     complete                = models.BooleanField(default=False)
+    is_delivery             = models.BooleanField(default=True, null=True)
     # transactionId           = models.CharField(max_length=60, null=True)
 
     def __str__(self):

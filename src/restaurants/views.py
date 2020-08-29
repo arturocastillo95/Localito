@@ -25,9 +25,8 @@ def restaurantView(request, restaurant):
             'business_hours': restaurant.business_hours,
             'about': restaurant.about,
             'currency': restaurant.get_currency_display(),
+            'image' : restaurant.imageURL
         }
-        if restaurant.image:
-            context['image'] = restaurant.image.url
 
         try:
             sections = Section.objects.filter(restaurant=restaurant)
@@ -148,6 +147,44 @@ def setOrderView(request):
 
         except Customer.DoesNotExist:
             return JsonResponse({'user_exist': False, 'order_exist': False}, status=200)
+
+def cartView(request, restaurant):
+    context = {}
+    try:
+        restaurant = Restaurant.objects.get(slug=restaurant)
+        context = {
+            'name': restaurant.name,
+            'currency': restaurant.get_currency_display(),
+            'image': restaurant.imageURL,
+            'slug': restaurant.slug
+        }
+
+        try:
+            device = request.COOKIES.get('device')
+            customer = Customer.objects.get(device=device)
+            order = Order.objects.get(customer=customer, restaurant=restaurant, complete=False)
+            all_products = order.get_order_products
+            product_list = {}
+
+            for item in all_products:
+                quantity = item.quantity
+                if quantity > 0:
+                    item_name = str(quantity) + ' x ' + item.product.name
+                    print(item_name) 
+                    product_list[item_name] = item.product.price * quantity
+
+            context['products'] = product_list
+            context['total'] = order.get_cart_total
+
+        except:
+            print('pass')
+
+        return render(request, 'restaurants/cart.html', context)
+
+    except Restaurant.DoesNotExist:
+        return redirect('home')
+
+
 
 
         
