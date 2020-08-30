@@ -86,7 +86,7 @@ class Order(models.Model):
     date_ordered            = models.DateTimeField(auto_now_add=True)
     complete                = models.BooleanField(default=False)
     is_delivery             = models.BooleanField(default=True, null=True)
-    # transactionId           = models.CharField(max_length=60, null=True)
+    notes                   = models.TextField(max_length=300, null=True, blank=True)
 
     def __str__(self):
         return str(self.id)

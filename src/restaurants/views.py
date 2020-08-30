@@ -10,6 +10,10 @@ from .models import (
 from localito.settings import STATIC_DIR
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
+from .forms import (
+    submitOrderForm, 
+    orderNotesForm
+    )
 
 
 # Create your views here.
@@ -129,7 +133,7 @@ def setOrderView(request):
             customer = Customer.objects.get(device=device)
             try:
                 restaurant = Restaurant.objects.get(slug=store)
-                order = Order.objects.get(customer=customer, restaurant=restaurant)
+                order = Order.objects.get(customer=customer, restaurant=restaurant, complete=False)
 
                 if not order.complete:
                     all_products = order.get_order_products
@@ -188,6 +192,44 @@ def cartView(request, restaurant):
 
     except Restaurant.DoesNotExist:
         return redirect('home')
+
+
+def lastStepFormView(request, restaurant, orderId):
+    try:
+        device = request.COOKIES.get('device')
+        customer = Customer.objects.get(device=device)
+        restaurant_obj = Restaurant.objects.get(slug=restaurant)
+        order = Order.objects.get(id=orderId)
+        context = {
+            'name': restaurant_obj.name,
+            'image': restaurant_obj.imageURL,
+            'slug': restaurant_obj.slug,
+        }
+        if order.complete:
+            return redirect('restaurant', restaurant=restaurant)
+    except:
+        return redirect('restaurant', restaurant=restaurant)
+
+    if request.POST:
+        client_form = submitOrderForm(request.POST, instance=customer)
+        order_notes_form = orderNotesForm(request.POST, instance=order)
+        if client_form.is_valid() and order_notes_form.is_valid():
+            client = client_form.save()
+            notes = order_notes_form.save()
+            order.complete = True
+            order.save()
+            return redirect('home')
+        else:
+            context['client_form'] = client_form
+            context['order_notes_form'] = order_notes_form
+    else:
+        client_form = submitOrderForm()
+        order_notes_form = orderNotesForm()
+        context['client_form'] = client_form
+        context['order_notes_form'] = order_notes_form
+    return render(request, 'restaurants/last_step.html', context)
+
+
 
 
 def addDeliveryView(request):
