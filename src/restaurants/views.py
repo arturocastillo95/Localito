@@ -9,7 +9,8 @@ from .models import (
     )
 from localito.settings import STATIC_DIR
 from django.http import JsonResponse
-from django.forms.models import model_to_dict
+from html import unescape
+from django.utils.http import urlencode
 from .forms import (
     submitOrderForm, 
     orderNotesForm
@@ -204,6 +205,7 @@ def lastStepFormView(request, restaurant, orderId):
             'name': restaurant_obj.name,
             'image': restaurant_obj.imageURL,
             'slug': restaurant_obj.slug,
+            'orderId': order.id,
         }
         if order.complete:
             return redirect('restaurant', restaurant=restaurant)
@@ -228,8 +230,6 @@ def lastStepFormView(request, restaurant, orderId):
         context['client_form'] = client_form
         context['order_notes_form'] = order_notes_form
     return render(request, 'restaurants/last_step.html', context)
-
-
 
 
 def addDeliveryView(request):
@@ -257,6 +257,35 @@ def removeDeliveryView(request):
         orderTotal = order.get_cart_total
 
         return JsonResponse({'total': orderTotal}, status=200)
+
+def addDeliveryDetailsView(request):
+    if request.POST:
+        device = request.COOKIES.get('device')
+        customer_name = request.POST.get('customer_name')
+        customer_addres = request.POST.get('customer_address')
+        orderId = request.POST.get('orderId')
+        notes = request.POST.get('notes')
+
+        customer = Customer.objects.get(device=device)
+        order = Order.objects.get(id=orderId)
+
+        customer.name = customer_name
+        customer.address = customer_addres
+        order.notes = notes
+
+        customer.save()
+        order.save()
+
+        return JsonResponse({'whats_url': order.whatsapp_link}, status=200)
+
+
+
+
+
+
+
+
+
 
         
 

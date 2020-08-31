@@ -3,6 +3,8 @@ from account.models import Account
 from django.utils.text import slugify
 from phonenumber_field.modelfields import PhoneNumberField
 from .symbols import symbols
+import urllib.parse
+
 
 class Restaurant(models.Model):
     owner                   = models.ForeignKey(Account, default=None, on_delete=models.CASCADE, blank=True)
@@ -107,6 +109,36 @@ class Order(models.Model):
         orderItems = self.orderitem_set.all()
         total = sum([item.quantity for item in orderItems])
         return total
+    
+    @property
+    def whatsapp_link(self):
+        total = self.get_cart_total
+        delivery_price = self.restaurant.delivery_price
+        restaurant_name = self.restaurant.name
+        client_name = self.customer.name
+        client_address = self.customer.address
+
+        if self.is_delivery and delivery_price > 0:
+            total += self.restaurant.delivery_price
+
+        all_products = self.get_order_products
+        product_list = ""
+
+        for item in all_products:
+            quantity = item.quantity
+            if quantity > 0:
+                item_name = '\n' + '-' + str(quantity) + ' x ' + item.product.name + ' (' + str(item.get_total) + ')'
+                product_list += item_name
+        if delivery_price:
+            product_list += '\n' + '-Envío a domocilio' + ' (' + str(delivery_price) + ')'
+
+        message = f"Hola {restaurant_name} soy *{client_name}* y quiero hacer un pedido para la dirección *{client_address}*:\n{product_list}\n\n*Total: {total}*"
+        encoded_message = urllib.parse.quote(message)
+        phone = str(self.restaurant.whatsapp_number).replace('+','')
+
+        return "https://wa.me/" + phone + "?text=" + encoded_message
+
+
 
 class OrderItem(models.Model):
     product                 = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null=True)
