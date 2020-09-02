@@ -1,11 +1,256 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Home</h1>
-</body>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Bienvenido - Localito</title>
+
+        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <!-- Bulma Version 0.9.0-->
+        <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+        <link rel="stylesheet" type="text/css" href={% static 'css/landing.css' %}>
+        <link rel="stylesheet" href="https://unpkg.com/bulma-modal-fx/dist/css/modal-fx.min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-pricingtable@0.2.0/dist/css/bulma-pricingtable.min.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lity/2.4.1/lity.min.js" integrity="sha512-UU0D/t+4/SgJpOeBYkY+lG16MaNF8aqmermRIz8dlmQhOlBnw6iQrnt4Ijty513WB3w+q4JO75IX03lDj6qQNA==" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lity/2.4.1/lity.min.css" integrity="sha512-UiVP2uTd2EwFRqPM4IzVXuSFAzw+Vo84jxICHVbOA1VZFUyr4a6giD9O3uvGPFIuB2p3iTnfDVLnkdY7D/SJJQ==" crossorigin="anonymous" />
+    </head>
+    
+    <body>
+
+        <!-- Hero section -->
+
+        <!-- Navbar -->
+        <section class="hero is-dark is-medium is-bold has-background">
+            <img src={% static 'images/mockup_hero_1.jpg' %} alt="" class="hero-background is-transparent">
+            <div class="hero-head">
+                <nav class="navbar">
+                    <div class="container">
+                        <div class="navbar-brand">
+
+                            <a class="navbar-item navbar-logo" href="">
+                                <img src={% static 'images/navbar_logo_localito.png' %} alt="Logo">
+                            </a>
+                            <span class="navbar-burger burger" data-target="navbarMenu">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </span>
+
+                        </div>
+
+                        <div id="navbarMenu" class="navbar-menu">
+                            <div class="navbar-end">
+                                <div class="tabs is-right">
+                                    <ul>
+                                        <li class="is-active"><a>Inicio</a></li>
+                                        <li><a href="#benefits">Beneficios</a></li>
+                                        <li><a href="#plans">Planes</a></li>
+                                        <li><a href="">Ayuda</a></li>
+                                    </ul>
+                                    <span class="navbar-item">
+                                        <a class="button is-white is-outlined">
+                                            <span class="icon">
+                                                <i class="fa fa-store"></i>
+                                            </span>
+                                            <span title="Empezar gratis ahora">Crear tu tienda</span>
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </nav>
+            </div>
+            <!-- End Navbar -->
+
+            <div class="hero-body my-4">
+                <div class="container has-text-centered">
+                    <h1 class="title">
+                    Empieza a recibir más pedidos sin pagar más
+                    </h1>
+                    <h2 class="subtitle">
+                    Localito: tu propia aplicación para recibir pedidos, sin comisiónes.
+                    </h2>
+                    <a href="" class="button is-rounded is-primary checkout-shadow">
+                        <span class="icon">
+                            <i class="fa fa-store"></i>
+                        </span>
+                        <span>Empieza gratis</span>
+                    </a>
+                    <a href={% url 'restaurant' 'mi-restaurante' %}>
+                        <p class="py-3 is-size-6">Ver tienda demo</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!-- End Hero section -->
+
+
+        <div class="box cta">
+            <p class="has-text-centered">
+                <span class="tag is-success">Nuevo</span> Registrate y obtén acceso a nuestro curso gratuito de estrategías de marketing para tu negocio
+            </p>
+        </div>
+
+        <section class="section">
+            
+            <div class="columns is-vcentered">
+                <div class="intro column is-6 is-offset-1 has-text-justified">
+                    <h2 class="title has-text-centered-mobile">La nueva forma de que tus clientes descubran tu negocio</h2><br>
+                    <p class="subtitle">Vel fringilla est ullamcorper eget nulla facilisi. Nulla facilisi nullam vehicula ipsum a. Neque egestas congue quisque egestas diam in arcu cursus.</p>
+                </div>
+
+                <div class="column has-text-centered">
+                    <div class="iphone">
+                        <div class="play">
+                            <a href="https://www.youtube.com/watch?v=kewXtkGmDtw" class="round-button" data-lity><i class="fa fa-play fa-2x play-icon"></i></a>
+                        </div>
+                        <img src={% static 'images/iphone_play.png' %}>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container is-fullhd has-text-centered py-3">
+                <a href="" class="button is-rounded is-primary my-2">
+                    <span class="icon">
+                        <i class="fa fa-store"></i>
+                    </span>
+                    <span>Crear tu tienda</span>
+                </a>
+                <a href="" class="button is-rounded mx-4 my-2">
+                    <span class="icon">
+                        <i class="fas fa-eye"></i>
+                    </span>
+                    <span>Ver tienda demo</span>
+                </a>
+            </div>
+
+
+            <!-- Beneficios -->
+            <h2 id="benefits"class="title has-text-centered pt-6">Beneficios</h2>
+
+            <div class="sandbox">
+                <div class="tile is-ancestor">
+                    <div class="tile is-parent is-shady">
+                        <article class="tile is-child notification is-white">
+                            <p class="title">⏰ Tu tienda online en 5 minutos</p>
+                            <p class="subtitle has-text-justified">Con nuestro sistema podrás crear y actualizar tu mismo los datos de tus productos, en menos de 5 minutos y sin necesidad de tener conocimientos de informatica. </p>
+                        </article>
+                    </div>
+                    <div class="tile is-parent is-shady">
+                        <article class="tile is-child notification is-white">
+                            <p class="title">✅ Deja de pagar comisiones</p>
+                            <p class="subtitle">Paga solo el plan que tu escogas, sin costos escondidos ni comisiones.</p>
+                        </article>
+                    </div>
+                    <div class="tile is-parent is-shady">
+                        <article class="tile is-child notification is-white">
+                            <p class="title">💬 Recibe pedidos por WhatsApp</p>
+                            <p class="subtitle">Contacto con tus clientes</p>
+                            <div class="content">
+                                <p>La plataforma de mensageria más popular del mundo será tu nueva aliada para generar más pedidos para tu negocio.</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                <div class="tile is-ancestor">
+                    <div class="tile is-vertical is-8">
+                        <div class="tile">
+                            <div class="tile is-parent is-vertical">
+                                <article class="tile is-child notification is-white">
+                                    <p class="title">📱 No necesitas app</p>
+                                    <p class="subtitle">Tus clientes podrán acceder a tu tienda desde cualquier dispositivo con conexión a internet, sin necesidad de descargar una aplicación para hacer pedidos.</p>
+                                </article>
+                                <article class="tile is-child notification is-white">
+                                    <p class="title">📷 Crea tu codigo QR</p>
+                                    <p class="subtitle">Utiliza la tencología QR para que tus clientes puedan escanear y visitar tu sitio en cuestión de segundos.</p>
+                                </article>
+                            </div>
+                            <div class="tile is-parent">
+                                <article class="tile is-child notification is-white">
+                                    <p class="title">🦠 No detengas tus ventas</p>
+                                    <p class="subtitle">¡Sigue creciendo!</p>
+                                    <div class="content">
+                                        <p class="has-text-justified">
+                                            Con Localito podrás llegar a más clientes que nunca antes, tu negocio puede seguir avanzando sin importar que tus clientes acudan fisicamente a tu establecimiento.
+                                        </p>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                        <div class="tile is-parent is-shady">
+                            <article class="tile is-child notification is-white">
+                                <p class="title">🚀 Liberate de las plataformas</p>
+                                <p class="subtitle">Aligned with the right column</p>
+                                <div class="content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                    <div class="tile is-parent is-shady">
+                        <article class="tile is-child notification is-white">
+                            <div class="content">
+                                <p class="title">🔥 Se parte de la comunidad Localito</p>
+                                <p class="subtitle">No estas solo</p>
+                                <div class="content">
+                                    <p>No somos solo una plataforma, con Localito eres parte de una familia de emprendedores que estamos para apoyarte con tu negocio. </p>
+                                    <p>Suspendisse varius ligula in molestie lacinia. Maecenas varius eget ligula a sagittis. Pellentesque interdum, nisl nec interdum maximus, augue diam porttitor lorem, et sollicitudin felis neque sit amet erat. Maecenas imperdiet
+                                    felis nisi, fringilla luctus felis hendrerit sit amet. Aenean vitae gravida diam, finibus dignissim turpis. Sed eget varius ligula, at volutpat tortor.</p>
+                                    <p>Integer sollicitudin, tortor a mattis commodo, velit urna rhoncus erat, vitae congue lectus dolor consequat libero. Donec leo ligula, maximus et pellentesque sed, gravida a metus. Cras ullamcorper a nunc ac porta. Aliquam
+                                    ut aliquet lacus, quis faucibus libero. Quisque non semper leo.</p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            
+            <h2 id="plans" class="title has-text-centered">Planes</h2><br>
+
+            <div class="pricing-table pb-6">        
+              
+                <div class="pricing-plan is-active">
+                  <div class="plan-header">Negocio</div>
+                  <div class="plan-price"><span class="plan-price-amount"><span class="plan-price-currency">$</span>169</span>/mensual</div>
+                  <div class="plan-items">
+                    <div class="plan-item">Recibe Pedidos por WhatsApp</div>
+                    <div class="plan-item">Catálogo de productos o menú</div>
+                    <div class="plan-item">1 sucursual</div>
+                    <div class="plan-item">100 Email Boxes</div>
+                  </div>
+                  <div class="plan-footer">
+                    <button class="button is-fullwidth">Seleccionar</button>
+                  </div>
+                </div>
+              
+                <div class="pricing-plan is-danger">
+                  <div class="plan-header">Empresarial</div>
+                  <div class="plan-price"><span class="plan-price-amount"><span class="plan-price-currency">$</span>299</span>/mensual</div>
+                  <div class="plan-items">
+                    <div class="plan-item">2TB Storage</div>
+                    <div class="plan-item">100 Domains</div>
+                    <div class="plan-item">1TB Bandwidth</div>
+                    <div class="plan-item">1000 Email Boxes</div>
+                  </div>
+                  <div class="plan-footer">
+                    <button class="button is-fullwidth">Seleccionar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </section>
+
+        
+    </body>
 </html>

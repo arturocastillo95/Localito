@@ -64,7 +64,7 @@ class Section(models.Model):
 
 class Product(models.Model):
     section                 = models.ForeignKey(Section, default=None, on_delete=models.CASCADE, blank=True)
-    name                    = models.CharField(max_length=20, blank=True)
+    name                    = models.CharField(max_length=60, blank=True)
     description             = models.TextField(max_length=150, blank=True)
     image                   = models.ImageField(upload_to='products', blank=True)
     price                   = models.DecimalField(max_digits=7, decimal_places=2)
@@ -87,7 +87,7 @@ class Order(models.Model):
     restaurant              = models.ForeignKey(Restaurant,on_delete=models.SET_NULL, blank=True, null=True)
     date_ordered            = models.DateTimeField(auto_now_add=True)
     complete                = models.BooleanField(default=False)
-    is_delivery             = models.BooleanField(default=True, null=True)
+    is_delivery             = models.BooleanField(default=True, null=True, blank=True)
     notes                   = models.TextField(max_length=300, null=True, blank=True)
 
     def __str__(self):
@@ -118,9 +118,6 @@ class Order(models.Model):
         client_name = self.customer.name
         client_address = self.customer.address
 
-        if self.is_delivery and delivery_price > 0:
-            total += self.restaurant.delivery_price
-
         all_products = self.get_order_products
         product_list = ""
 
@@ -129,10 +126,12 @@ class Order(models.Model):
             if quantity > 0:
                 item_name = '\n' + '-' + str(quantity) + ' x ' + item.product.name + ' (' + str(item.get_total) + ')'
                 product_list += item_name
-        if delivery_price:
+                
+        if self.is_delivery and delivery_price > 0:
+            total += self.restaurant.delivery_price
             product_list += '\n' + '-Envío a domocilio' + ' (' + str(delivery_price) + ')'
 
-        message = f"Hola {restaurant_name} soy *{client_name}* y quiero hacer un pedido para la dirección *{client_address}*:\n{product_list}\n\n*Total: {total}*"
+        message = f"Hola {restaurant_name} soy *{client_name}* y quiero hacer un pedido para la dirección *{client_address}*:\n{product_list}\n\n*Total: {total}*\n\n¡Gracias!"
         encoded_message = urllib.parse.quote(message)
         phone = str(self.restaurant.whatsapp_number).replace('+','')
 
