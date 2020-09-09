@@ -1,0 +1,77 @@
+{% extends 'dashboard/base_dash.html' %}
+{% load static %}
+
+{% block title %}
+    Mis negocios | Localito
+{% endblock title %}
+
+
+{% block dash_title %}
+    Mis negocios
+{% endblock dash_title %}
+
+
+{% block dash_description %}
+    <span class="icon is-small">
+        <i class="fas fa-hand-point-up"></i>
+    </span>
+
+    Haz click para configurar tu negocio
+{% endblock dash_description %}
+
+
+{% block dash_content %}
+
+    
+    {% for restaurant_name, details in restaurants.items %}
+    <div class="card mb-5">
+        <div class="card-content card-store">
+            <div class="media">
+
+                <div class="media-left">
+                    <figure class="image is-128x128">
+                    {% if details.0 %}
+                        <img src={{ details.0 }} alt="" class="thumbnail">
+                    {% else %}
+                        <img src={% static 'images/logo-restaurant-default.jpg' %} alt="" class="thumbnail">
+                    {% endif %}
+                    </figure>
+                </div>
+
+                <div class="media-content">
+                    <div class="content">
+                        <p class="title is-4 mb-2">{{ restaurant_name }}</p>
+                        <p class="mb-2">{{ details.1 }}</p>
+                    </div>
+                    
+                    <nav class="level is-mobile">
+                        <div class="level-left">
+                            <a class="level-item">
+                                <span class="icon is-small">
+                                    <i class="fas fa-eye"></i>
+                                </span>
+                                <span>&nbsp;&nbsp;123&nbsp;</span>
+                            </a>
+                            <a class="level-item">
+                                <span class="icon is-small">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </span>
+                                <span>&nbsp;&nbsp;12</span>
+                            </a>
+                            <a class="level-item">
+                                <span class="icon is-small">
+                                    <i class="fas fa-percentage"></i>
+                                </span>
+                                <span>&nbsp;&nbsp;10.2%</span>
+                            </a>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+        
+    
+{% endblock dash_content %}
+    

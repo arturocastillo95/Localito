@@ -14,21 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from restaurants.views import (
     restaurantView,
-    newItemOrderView,
-    updateOrderView,
-    setOrderView,
     cartView,
-    addDeliveryView,
-    removeDeliveryView,
     lastStepFormView,
-    addDeliveryDetailsView,
 )
 
 from pagemanager.views import homeScreenView
+from dashboard.views import dashboardView
 
 #Images config
 from django.conf.urls.static import static
@@ -36,18 +31,12 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('dashboard/', dashboardView, name='dashboard'),
     path('', homeScreenView, name="home"),
     path('<str:restaurant>/', restaurantView, name='restaurant'),
-    path('ajax/newitemorder', newItemOrderView, name='newItemOrder'),
-    path('ajax/updateorder', updateOrderView, name='updateOrder'),
-    path('ajax/setorder', setOrderView, name='setOrder'),
-    path('ajax/add-delivery', addDeliveryView, name='addDelivery'),
-    path('ajax/remove-delivery', removeDeliveryView, name='removeDelivery'),
-    path('ajax/add-delivery-details', addDeliveryDetailsView, name='addDeliveryDetails'),
+    path('ajax/', include('restaurants.urls')),
     path('<str:restaurant>/cart/', cartView, name='cart'),
     path('<str:restaurant>/checkout/id=<int:orderId>', lastStepFormView, name='checkout'),
-    
-
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -35,6 +35,7 @@ class Restaurant(models.Model):
             links['fa-instagram'] = self.instagram_url
         return links
     
+    @property
     def get_full_address(self):
         address = ''
         if self.address:

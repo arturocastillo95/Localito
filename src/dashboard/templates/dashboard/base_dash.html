@@ -1,0 +1,116 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>
+        {% block title %}
+            
+        {% endblock title %}
+            </title>
+
+        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+        <link rel="stylesheet" type="text/css" href={% static 'css/dashboard.css' %}>
+        <!-- <link rel="stylesheet" href="https://unpkg.com/bulma-modal-fx/dist/css/modal-fx.min.css" /> -->
+
+        
+        {% block head %}
+            
+        {% endblock head %}
+            
+    </head>
+
+    
+    <body>
+        <nav class="dashnav">
+            <ul class="dashnav-nav">
+
+                <li class="dash-item">
+                    <a href="" class="dash-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="441.000000pt" height="441.000000pt" viewBox="0 0 441.000000 441.000000" preserveAspectRatio="xMidYMid meet">
+                            <metadata>
+                            </metadata>
+                            <g transform="translate(0.000000,441.000000) scale(0.100000,-0.100000)" stroke="none">
+                            <path d="M2033 4400 c-345 -36 -623 -166 -877 -410 -311 -300 -460 -615 -482 -1024 -17 -306 99 -811 209 -915 21 -19 33 -22 59 -17 49 9 272 145 357 218 107 91 110 97 120 216 7 74 15 111 30 135 31 51 111 123 261 234 364 271 573 368 651 303 l24 -19 -165 -163 c-91 -90 -304 -300 -473 -467 -362 -357 -501 -516 -621 -711 -49 -79 -58 -126 -30 -155 28 -28 131 -75 201 -91 86 -20 198 -14 273 16 135 53 236 126 425 306 100 95 194 187 208 204 36 43 47 90 40 179 -10 141 11 176 196 330 99 82 505 398 578 449 69 49 18 -10 -130 -149 -361 -339 -417 -396 -417 -428 0 -29 2 -30 26 -21 15 6 59 39 98 73 62 55 471 398 519 436 9 7 17 9 17 4 0 -5 -126 -141 -280 -303 -288 -303 -312 -335 -248 -335 22 0 80 50 293 254 294 280 325 308 325 292 0 -10 -215 -268 -427 -514 -93 -108 -112 -147 -73 -147 28 0 76 46 338 323 198 210 284 292 256 245 -23 -39 -504 -651 -548 -697 -75 -78 -108 -91 -246 -91 -94 0 -121 -3 -145 -18 -28 -17 -468 -466 -529 -539 -51 -61 -136 -206 -165 -281 -38 -101 -54 -207 -49 -329 l4 -99 99 -129 c114 -151 232 -296 366 -453 l94 -111 29 27 c15 15 98 110 183 212 453 540 852 1150 1063 1624 201 451 288 857 251 1173 -81 694 -584 1231 -1261 1347 -111 19 -323 27 -427 16z"/>
+                            </g>
+                            </svg>
+                        <span class="link-text">Negocios</span>
+                    </a>
+                </li>
+
+                <li class="dash-item">
+                    <a href="" class="dash-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="book-open" class="svg-inline--fa fa-book-open fa-w-14 fa-5x" role="img" viewBox="0 0 576 512"><path fill="currentColor" d="M542.22 32.05c-54.8 3.11-163.72 14.43-230.96 55.59-4.64 2.84-7.27 7.89-7.27 13.17v363.87c0 11.55 12.63 18.85 23.28 13.49 69.18-34.82 169.23-44.32 218.7-46.92 16.89-.89 30.02-14.43 30.02-30.66V62.75c.01-17.71-15.35-31.74-33.77-30.7zM264.73 87.64C197.5 46.48 88.58 35.17 33.78 32.05 15.36 31.01 0 45.04 0 62.75V400.6c0 16.24 13.13 29.78 30.02 30.66 49.49 2.6 149.59 12.11 218.77 46.95 10.62 5.35 23.21-1.94 23.21-13.46V100.63c0-5.29-2.62-10.14-7.27-12.99z"/></svg>
+                        <span class="link-text">Catálogo</span>
+                    </a>
+                </li>
+
+                <li class="dash-item hidden-mobile">
+                    <a href="" class="dash-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chart-line" class="svg-inline--fa fa-chart-line fa-w-16 fa-5x" role="img" viewBox="0 0 512 512"><path fill="currentColor" d="M496 384H64V80c0-8.84-7.16-16-16-16H16C7.16 64 0 71.16 0 80v336c0 17.67 14.33 32 32 32h464c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16zM464 96H345.94c-21.38 0-32.09 25.85-16.97 40.97l32.4 32.4L288 242.75l-73.37-73.37c-12.5-12.5-32.76-12.5-45.25 0l-68.69 68.69c-6.25 6.25-6.25 16.38 0 22.63l22.62 22.62c6.25 6.25 16.38 6.25 22.63 0L192 237.25l73.37 73.37c12.5 12.5 32.76 12.5 45.25 0l96-96 32.4 32.4c15.12 15.12 40.97 4.41 40.97-16.97V112c.01-8.84-7.15-16-15.99-16z"/></svg>
+                        <span class="link-text">Estadisticas</span>
+                    </a>
+                </li>
+
+                <li class="dash-item">
+                    <a href="" class="dash-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="question-circle" class="svg-inline--fa fa-question-circle fa-w-16 fa-5x" role="img" viewBox="0 0 512 512"><path fill="currentColor" d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"/></svg>                          
+                        <span class="link-text">Ayuda</span>
+                    </a>
+                </li>
+
+                <li class="dash-item">
+                    <a href="" class="dash-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user-cog" class="svg-inline--fa fa-user-cog fa-w-20 fa-5x" role="img" viewBox="0 0 640 512"><path fill="currentColor" d="M610.5 373.3c2.6-14.1 2.6-28.5 0-42.6l25.8-14.9c3-1.7 4.3-5.2 3.3-8.5-6.7-21.6-18.2-41.2-33.2-57.4-2.3-2.5-6-3.1-9-1.4l-25.8 14.9c-10.9-9.3-23.4-16.5-36.9-21.3v-29.8c0-3.4-2.4-6.4-5.7-7.1-22.3-5-45-4.8-66.2 0-3.3.7-5.7 3.7-5.7 7.1v29.8c-13.5 4.8-26 12-36.9 21.3l-25.8-14.9c-2.9-1.7-6.7-1.1-9 1.4-15 16.2-26.5 35.8-33.2 57.4-1 3.3.4 6.8 3.3 8.5l25.8 14.9c-2.6 14.1-2.6 28.5 0 42.6l-25.8 14.9c-3 1.7-4.3 5.2-3.3 8.5 6.7 21.6 18.2 41.1 33.2 57.4 2.3 2.5 6 3.1 9 1.4l25.8-14.9c10.9 9.3 23.4 16.5 36.9 21.3v29.8c0 3.4 2.4 6.4 5.7 7.1 22.3 5 45 4.8 66.2 0 3.3-.7 5.7-3.7 5.7-7.1v-29.8c13.5-4.8 26-12 36.9-21.3l25.8 14.9c2.9 1.7 6.7 1.1 9-1.4 15-16.2 26.5-35.8 33.2-57.4 1-3.3-.4-6.8-3.3-8.5l-25.8-14.9zM496 400.5c-26.8 0-48.5-21.8-48.5-48.5s21.8-48.5 48.5-48.5 48.5 21.8 48.5 48.5-21.7 48.5-48.5 48.5zM224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm201.2 226.5c-2.3-1.2-4.6-2.6-6.8-3.9l-7.9 4.6c-6 3.4-12.8 5.3-19.6 5.3-10.9 0-21.4-4.6-28.9-12.6-18.3-19.8-32.3-43.9-40.2-69.6-5.5-17.7 1.9-36.4 17.9-45.7l7.9-4.6c-.1-2.6-.1-5.2 0-7.8l-7.9-4.6c-16-9.2-23.4-28-17.9-45.7.9-2.9 2.2-5.8 3.2-8.7-3.8-.3-7.5-1.2-11.4-1.2h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c10.1 0 19.5-3.2 27.2-8.5-1.2-3.8-2-7.7-2-11.8v-9.2z"/></svg>
+                        <span class="link-text">Configuración</span>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+
+
+        <!-- Start content -->
+
+        <main>
+
+            <section class="info my-5">
+                <div class="container">
+                   
+                    <div class="column is-10 is-offset-1 mb-4">
+                        <h1 class="title mb-2">
+                        {% block dash_title %}
+                            
+                        {% endblock dash_title %}
+                            </h1>
+                        
+                        
+                        {% block dash_description %}
+                            
+                        {% endblock dash_description %}
+                            
+                    </div>
+
+                    <div class="column is-10 is-offset-1 is-main-column">
+
+                        
+                        {% block dash_content %}
+                            
+                        {% endblock dash_content %}
+
+                    </div>
+
+                    
+                </div>
+            </section>
+
+        </main>
+
+    </body>
+
+</html>

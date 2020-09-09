@@ -26,7 +26,7 @@ def restaurantView(request, restaurant):
             'name': restaurant.name,
             'slug': restaurant.slug,
             'social_links': restaurant.get_social_links(),
-            'address': restaurant.get_full_address(),
+            'address': restaurant.get_full_address,
             'business_hours': restaurant.business_hours,
             'about': restaurant.about,
             'currency': restaurant.get_currency_display(),

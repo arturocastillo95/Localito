@@ -1,0 +1,140 @@
+html,body {
+    background: #f3f3f3;
+    height: 100%;
+}
+
+.dashnav {
+    position: fixed;
+    background: rgb(153,51,89);
+    background: linear-gradient(302deg, rgba(153,51,89,1) 0%, rgba(235,119,92,1) 74%);    overflow: scroll;
+    z-index: 999;
+    transition: width 150ms ease;
+}
+
+.dashnav-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+.dash-item {
+    width: 100%;
+    transition: 120ms ease;
+}
+
+.card {
+    border-radius: 10px;
+}
+
+.dash-link svg {
+    width: 2rem !important;
+    min-width: 2rem;
+    margin: 0 1.5rem;
+    color: #f3f3f3;
+    fill: #f3f3f3;
+  }
+
+.dash-link {
+    color: #f3f3f3;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    height: 5rem;
+}
+
+.link-text {
+    display: none;
+    margin-left: 1rem;
+}
+
+.dash-link:hover svg {
+    color: #ffffff;
+    fill: #ffffff;
+  }
+
+.dash-link:hover {
+    color: #ffffff;
+}
+
+.dash-item:hover {
+    background-color: #673A5F;
+}
+
+.thumbnail{
+    border-radius: 10px;
+}
+
+.is-main-column {
+    padding: 0;
+}
+
+.card-store {
+    padding: 1em;
+}
+
+@media only screen and (min-width: 960px) {
+    .dashnav {
+        width: 5rem;
+        height: 100vh;
+    }
+
+    main {
+        margin-left: 5rem !important;
+        padding: 1rem;
+        height: 100%;
+    }
+
+    .dashnav:hover {
+        width: 16rem;
+    }
+
+    .dashnav:hover .link-text{
+        display: block;
+    }
+
+    .dash-item:last-child {
+        margin-top: auto;
+    }
+    
+}
+
+@media screen and (max-width: 960px) {
+    .dashnav {
+        bottom: 0;
+        width: 100vw;
+        height: 5rem;
+    }
+    .dashnav-nav {
+        flex-direction: row;
+    }
+    .dash-link {
+        justify-content: center;
+    }
+
+    .dash-link-label {
+
+        margin: 0;
+        padding: 0;
+    }
+
+    main {
+        margin: 1em;
+    }
+
+    .hidden-mobile {
+        display: none;
+    }
+}
+
+.level a {
+    color: gray;
+}
+
+.card .level {
+    position: absolute;
+    bottom: 1em;
+}
