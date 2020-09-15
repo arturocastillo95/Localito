@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -20,9 +21,18 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '*!p5&gc1roiun$w2%q#d7f!1@!rqzmf=d641k_njn(7xh)r5jm'
+env = environ.Env()
+environ.Env.read_env()
 
+
+# SECURITY WARNING: keep the secret key used in production secret!
+
+SECRET_KEY = "*!p5&gc1roiun$w2%q#d7f!1@!rqzmf=d641k_njn(7xh)r5jm"
+# SECRET_KEY = env('SECRET_KEY')
+
+# SILENCED_SYSTEM_CHECKS = ['admin.E408',]
+
+# SESSION_ENGINE = 'rotatesecretkey.sessions'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -48,6 +58,8 @@ INSTALLED_APPS = [
 
     # Third party
     'phonenumber_field',
+    'storages',
+    'rotatesecretkey',
 
 ]
 
@@ -56,6 +68,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    # 'rotatesecretkey.middleware.RotateAuthenticationMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -144,3 +157,18 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
+
+
+#S3 BUCKET CONFIG
+
+AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_CALLING_FORMAT = 'boto.s3.connection.OrdinaryCallingFormat'
+AWS_S3_HOST = 's3.us-west-2.amazonaws.com'
+
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
