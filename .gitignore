@@ -1,6 +1,9 @@
 # created by virtualenv automatically
 
-/.DS_Store
+**/.DS_Store
 /Main.code-workspace
 /src/localito/.env
 /.vscode
+/bin
+/lib
+/pyvenv.cfg
