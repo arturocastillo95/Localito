@@ -27,12 +27,12 @@ environ.Env.read_env()
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = "*!p5&gc1roiun$w2%q#d7f!1@!rqzmf=d641k_njn(7xh)r5jm"
-# SECRET_KEY = env('SECRET_KEY')
+OLD_SECRET_KEY = "*!p5&gc1roiun$w2%q#d7f!1@!rqzmf=d641k_njn(7xh)r5jm"
+SECRET_KEY = env('SECRET_KEY')
 
-# SILENCED_SYSTEM_CHECKS = ['admin.E408',]
+SILENCED_SYSTEM_CHECKS = ['admin.E408',]
 
-# SESSION_ENGINE = 'rotatesecretkey.sessions'
+SESSION_ENGINE = 'rotatesecretkey.sessions'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -68,8 +68,8 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    # 'rotatesecretkey.middleware.RotateAuthenticationMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'rotatesecretkey.middleware.RotateAuthenticationMiddleware',
+    # 'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
