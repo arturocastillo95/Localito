@@ -21,9 +21,9 @@ from restaurants.views import (
     cartView,
     lastStepFormView,
 )
-
 from pagemanager.views import homeScreenView
 from dashboard.views import dashboardView
+from account.views import registerView
 
 #Images config
 from django.conf.urls.static import static
@@ -33,6 +33,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('dashboard/', dashboardView, name='dashboard'),
     path('', homeScreenView, name="home"),
+    path('registro/', registerView, name='register'),
     path('<str:restaurant>/', restaurantView, name='restaurant'),
     path('ajax/', include('restaurants.urls')),
     path('<str:restaurant>/cart/', cartView, name='cart'),

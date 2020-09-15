@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro | Localito</title>
+
+    <!-- Bulma -->
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+    <link rel="stylesheet" type="text/css" href={% static 'css/register.css' %}>
+
+</head>
+<body>
+
+    <section class="hero has-background is-fullheight is-dark">
+        <img src={% static 'images/mockup_hero_1.jpg' %} alt="" class="hero-background is-transparent">
+        <div class="hero-body">
+            <div class="container">
+                <div class="column is-mobile">
+                    <div class="column is-half is-offset-one-quarter">
+                        <div class="box">
+                            <h1 class="title is-2 has-text-black">Empieza a crear tu tienda</h1>
+                            <form action="" method="post">
+                                {% csrf_token %}
+    
+                                
+                                {% for field in registration_form %}
+
+                                <div class="field">
+                                    <label for="{{ field.id_for_label }}" class="label">{{field.label}}</label>
+                                    {{field}}
+                                </div>
+
+                                {% if field.help_text %}
+                                <p class="help" style="padding-bottom: 5px">{{field.help_text}}</p>
+                                {% endif %} 
+
+                                {% for error in field.errors %}
+                                <p class="help is-danger" style="padding-bottom:5px">{{error}}</p>
+                                {% endfor %}
+
+                                {% endfor %}
+                                    
+    
+                                <div class="control py-4">
+                                    <button class="button is-primary is-fullwidth" type='submit'>
+                                        <span>
+                                            Registrar
+                                        </span>
+                                        <span class="icon is-medium">
+                                            <i class="fas fa-sign-in-alt"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
