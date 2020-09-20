@@ -23,7 +23,7 @@ from restaurants.views import (
 )
 from pagemanager.views import homeScreenView
 from dashboard.views import dashboardView
-from account.views import registerView
+from account.views import registerView, logoutView
 
 #Images config
 from django.conf.urls.static import static
@@ -34,6 +34,7 @@ urlpatterns = [
     path('dashboard/', dashboardView, name='dashboard'),
     path('', homeScreenView, name="home"),
     path('registro/', registerView, name='register'),
+    path('logout/', logoutView, name='logout'),
     path('<str:restaurant>/', restaurantView, name='restaurant'),
     path('ajax/', include('restaurants.urls')),
     path('<str:restaurant>/cart/', cartView, name='cart'),

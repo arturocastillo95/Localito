@@ -8,7 +8,7 @@ def registerView(request):
     context = {}
     if request.POST:
         form = RegistrationForm(request.POST)
-        if form.is_valid:
+        if form.is_valid():
             new_user = form.save()
             email = form.cleaned_data.get('email')
             raw_password = form.cleaned_data.get('password1')
@@ -23,3 +23,6 @@ def registerView(request):
     
     return render(request, 'account/register.html', context)
 
+def logoutView(request):
+    logout(request)
+    return redirect('home')
