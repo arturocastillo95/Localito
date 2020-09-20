@@ -158,17 +158,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
 
-
 #S3 BUCKET CONFIG
 
-AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_CALLING_FORMAT = 'boto.s3.connection.OrdinaryCallingFormat'
-AWS_S3_HOST = 's3.us-west-2.amazonaws.com'
+# AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+# AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
+# AWS_S3_CALLING_FORMAT = 'boto.s3.connection.OrdinaryCallingFormat'
+# AWS_S3_HOST = 's3.us-west-2.amazonaws.com'
 
 
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = None
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# AWS_S3_FILE_OVERWRITE = False
+# AWS_DEFAULT_ACL = None
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'

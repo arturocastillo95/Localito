@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from account.forms import RegistrationForm
+from localito.custom_decorators import anonymous_required
 
+@anonymous_required(redirect_url='home')
 def registerView(request):
     context = {}
-
     if request.POST:
         form = RegistrationForm(request.POST)
         if form.is_valid:

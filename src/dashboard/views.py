@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from restaurants.models import Restaurant
+from django.contrib.auth.decorators import login_required
 
+
+@login_required
 def dashboardView(request):
     if request.user.is_authenticated:
         context = {}
