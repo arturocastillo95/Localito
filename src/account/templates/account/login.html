@@ -1,18 +1,16 @@
 {% extends 'account/base_form.html' %}
 
-
 {% block form_title %}
-    Empieza a crear tu tienda
+    Iniciar sesión
 {% endblock form_title %}
     
-
 
 {% block form %}
     <form action="" method="post">
         {% csrf_token %}
 
         
-        {% for field in registration_form %}
+        {% for field in login_form %}
 
         <div class="field">
             <label for="{{ field.id_for_label }}" class="label">{{field.label}}</label>
@@ -33,7 +31,7 @@
         <div class="control py-4">
             <button class="button is-primary is-fullwidth" type='submit'>
                 <span>
-                    Registrar
+                    Iniciar sesión
                 </span>
                 <span class="icon is-medium">
                     <i class="fas fa-sign-in-alt"></i>
@@ -43,10 +41,11 @@
         
     </form>
 {% endblock form %}
-    
 
 {% block form_footer %}
     <p class="has-text-centered">
-        ¿Ya tienes una cuenta? <a href={% url 'login' %}>Inicia sesión</a>
+        ¿Aún no tienes una cuenta? <a href={% url 'register' %}>Crear una cuenta</a>
     </p>
 {% endblock form_footer %}
+
+    

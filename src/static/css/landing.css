@@ -39,10 +39,6 @@ html,body {
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
     margin-bottom: 2rem;
   }
-  /* .intro {
-    padding: 5rem 0;
-    text-align: center;
-  } */
   .sandbox {
     padding: 2rem 0;
   }
@@ -161,6 +157,15 @@ a {
   background-color: #EB775C !important;
   border-color: transparent;
   color: #fff;
+}
+
+.is-login {
+  text-decoration: none !important;
+}
+
+.is-login:hover {
+  background-color: rgba(0,0,0,0.5) !important;
+  color: #EB775C !important;
 }
 
 

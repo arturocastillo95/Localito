@@ -54,7 +54,15 @@
                                         <li><a href="">Ayuda</a></li>
                                     </ul>
                                     <span class="navbar-item">
-                                        <a class="button is-white is-outlined">
+                                        <a class="button is-text is-login" href={% url 'login' %}>
+                                            <span class="icon">
+                                                <i class="fas fa-sign-in-alt"></i>
+                                            </span>
+                                            <span title="Iniciar sesión en tu cuenta">Iniciar sesión</span>
+                                        </a>
+                                    </span>
+                                    <span class="navbar-item">
+                                        <a class="button is-white is-outlined mx-0" href={% url 'register' %}>
                                             <span class="icon">
                                                 <i class="fa fa-store"></i>
                                             </span>
