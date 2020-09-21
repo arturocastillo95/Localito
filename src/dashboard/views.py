@@ -28,5 +28,6 @@ def getModalURL(request):
     if request.GET:
         store_slug = request.GET.get('store')
         store_url = reverse('restaurant', args=(store_slug,))
-        print(store_url)
-        return JsonResponse({'store_URL': store_url}, status=200)
+        share_url = request.build_absolute_uri(store_url)
+        print(share_url)
+        return JsonResponse({'store_URL': store_url, 'share_URL': share_url}, status=200)

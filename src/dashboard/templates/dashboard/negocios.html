@@ -153,7 +153,7 @@
                                 <i class="fas fa-file-alt"></i>
                             </span>
                             <span>
-                                Información de tienda
+                                Editar información de tienda
                             </span>
                         </a>
 
@@ -166,7 +166,7 @@
                             </span>
                         </a>
 
-                        <a href="" class="button is-fullwidth selector mb-3 view-button" target="_blank">
+                        <a id="view-button" href="" class="button is-fullwidth selector mb-3" target="_blank">
                             <span class="icon">
                                 <i class="fas fa-eye"></i>
                             </span>
@@ -175,7 +175,7 @@
                             </span>
                         </a>
 
-                        <a class="button is-fullwidth selector">
+                        <a id="share-button" class="button is-fullwidth selector" target="_blank" data-fullurl="">
                             <span class="icon">
                                 <i class="fas fa-share-square"></i>
                             </span>
@@ -199,6 +199,23 @@
     
             $(document).ready(function() {
 
+                function copyStringToClipboard (str) {
+                    // Create new element
+                    var el = document.createElement('textarea');
+                    // Set value (string to be copied)
+                    el.value = str;
+                    // Set non-editable to avoid focus and move outside of view
+                    el.setAttribute('readonly', '');
+                    el.style = {position: 'absolute', left: '-9999px'};
+                    document.body.appendChild(el);
+                    // Select text inside element
+                    el.select();
+                    // Copy text to clipboard
+                    document.execCommand('copy');
+                    // Remove temporary element
+                    document.body.removeChild(el);
+                }
+
                 let csrf_token = '{{ csrf_token }}';
 
                 $('.card').click(function(e){
@@ -220,7 +237,8 @@
                             },
                             type: 'get',
                             success: function(response) {
-                                $('.view-button').attr('href', response.store_URL)
+                                $('#view-button').attr('href', response.store_URL)
+                                $('#share-button').attr('data-fullurl', response.share_URL)
                             },
 
                         })
@@ -231,6 +249,12 @@
         
                 $('.modal-close, .modal-background').click(function(e){
                     $(this).closest('.modal').removeClass('is-active')
+                });
+
+                $('#share-button').click(function(e) {
+                    let share_url = $(this).attr('data-fullurl')
+                    copyStringToClipboard(share_url)
+                    alert('Se ha copiado la dirección de tu tienda al portapapeles')
                 });
         
             });
