@@ -15,6 +15,7 @@ from .forms import (
     submitOrderForm, 
     orderNotesForm
     )
+from localito.custom_decorators import ajax_required
 
 
 # Create your views here.
@@ -60,6 +61,7 @@ def restaurantView(request, restaurant):
     except Restaurant.DoesNotExist:
         return redirect('home')
 
+@ajax_required
 def newItemOrderView(request):
     itemOrderId = request.POST.get('itemOrderId')
     store = request.POST.get('store')
@@ -84,6 +86,7 @@ def newItemOrderView(request):
 
         return JsonResponse({'total': order.get_cart_total, 'item_sum': order.get_cart_items}, status=200)
 
+@ajax_required
 def updateOrderView(request):
 
     if request.GET:
@@ -124,7 +127,7 @@ def updateOrderView(request):
 
         return response
         
-
+@ajax_required
 def setOrderView(request):
     if request.GET:
         device = request.COOKIES.get('device')
@@ -152,6 +155,7 @@ def setOrderView(request):
 
         except Customer.DoesNotExist:
             return JsonResponse({'user_exist': False, 'order_exist': False}, status=200)
+
 
 def cartView(request, restaurant):
     context = {}
@@ -231,7 +235,7 @@ def lastStepFormView(request, restaurant, orderId):
         context['order_notes_form'] = order_notes_form
     return render(request, 'restaurants/last_step.html', context)
 
-
+@ajax_required
 def addDeliveryView(request):
     
     if request.POST:
@@ -245,7 +249,7 @@ def addDeliveryView(request):
 
         return JsonResponse({'price': delivery_price, 'total': orderTotal}, status=200)
 
-
+@ajax_required
 def removeDeliveryView(request):
     
     if request.POST:
@@ -258,6 +262,7 @@ def removeDeliveryView(request):
 
         return JsonResponse({'total': orderTotal}, status=200)
 
+@ajax_required
 def addDeliveryDetailsView(request):
     if request.POST:
         device = request.COOKIES.get('device')

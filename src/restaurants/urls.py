@@ -12,10 +12,10 @@ from restaurants.views import (
 )
 
 urlpatterns = [
-    path('ajax/newitemorder', newItemOrderView, name='newItemOrder'),
-    path('ajax/updateorder', updateOrderView, name='updateOrder'),
-    path('ajax/setorder', setOrderView, name='setOrder'),
-    path('ajax/add-delivery', addDeliveryView, name='addDelivery'),
-    path('ajax/remove-delivery', removeDeliveryView, name='removeDelivery'),
-    path('ajax/add-delivery-details', addDeliveryDetailsView, name='addDeliveryDetails'),
+    path('newitemorder', newItemOrderView, name='newItemOrder'),
+    path('updateorder', updateOrderView, name='updateOrder'),
+    path('setorder', setOrderView, name='setOrder'),
+    path('add-delivery', addDeliveryView, name='addDelivery'),
+    path('remove-delivery', removeDeliveryView, name='removeDelivery'),
+    path('add-delivery-details', addDeliveryDetailsView, name='addDeliveryDetails'),
 ]

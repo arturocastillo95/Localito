@@ -37,9 +37,9 @@ urlpatterns = [
     path('logout/', logoutView, name='logout'),
     path('acceder/', loginView, name='login'),
     path('<str:restaurant>/', restaurantView, name='restaurant'),
-    path('ajax/', include('restaurants.urls')),
     path('<str:restaurant>/cart/', cartView, name='cart'),
     path('<str:restaurant>/checkout/id=<int:orderId>', lastStepFormView, name='checkout'),
+    path('ajax/', include('restaurants.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
