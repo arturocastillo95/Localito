@@ -9,6 +9,9 @@
     <form action="" method="post">
         {% csrf_token %}
 
+        {% for non_field_error in login_form.non_field_errors %}
+        <div class="notification is-danger">{{ non_field_error }}</div>
+        {% endfor%}
         
         {% for field in login_form %}
 
