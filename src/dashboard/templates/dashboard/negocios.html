@@ -41,7 +41,7 @@
                 <div class="media-content">
                     <div class="content">
                         <p class="title is-4 mb-2">{{ restaurant_name }}</p>
-                        <p class="mb-2">{{ details.1 }}</p>
+                        <p class="mb-2 store-address">{{ details.1 }}</p>
                     </div>
                     
                     <nav class="level is-mobile">
@@ -71,7 +71,153 @@
         </div>
     </div>
     {% endfor %}
+
+    <a href="" class="button is-fullwidth is-primary" style="margin-top: 2rem;">
+        <span class="icon">
+            <i class="fas fa-plus"></i>
+        </span>
+        <span>
+            Crear una tienda nueva
+        </span>
+    </a>
+
+    <!-- Store options modal -->
+    <div id="restaurant-options" class="modal modal-fx-slideBottom">
+        <div class="modal-background"></div>
+            <div class="modal-content">
+                <!-- Any other Bulma elements you want -->
+
+                <div class="card mb-5">
+                    <div class="card-content card-store">
+                        <div class="media">
+
+                            <div class="media-left">
+                                <figure class="image is-128x128">
+                                    <img class="thumbnail" src="image-temp.jpg" alt="" srcset="">
+                                </figure>
+                            </div>
+
+                            <div class="media-content">
+                                <div class="content">
+                                    <p class="title is-4 mb-2">Mi restaurante</p>
+                                    <p class="mb-2 store-address">LAGUNA NORTE 1684, TORREON JARDIN, TORREÓN</p>
+                                </div>
+                                <br>
+                                <nav class="level is-mobile">
+                                    <div class="level-left">
+                                        <a class="level-item">
+                                            <span class="icon is-small">
+                                                <i class="fas fa-eye"></i>
+                                            </span>
+                                            <span>&nbsp;&nbsp;123&nbsp;</span>
+                                        </a>
+                                        <a class="level-item">
+                                            <span class="icon is-small">
+                                                <i class="fas fa-shopping-cart"></i>
+                                            </span>
+                                            <span>&nbsp;&nbsp;12</span>
+                                        </a>
+                                        <a class="level-item">
+                                            <span class="icon is-small">
+                                                <i class="fas fa-percentage"></i>
+                                            </span>
+                                            <span>&nbsp;&nbsp;10.2%</span>
+                                        </a>
+                                    </div>
+                                </nav>
+                            </div>
+                        </div>
+
+                        <!-- Button section -->
+
+                        <a class="button is-fullwidth selector mb-3">
+                            <span class="icon">
+                                <i class="fas fa-tags"></i>
+                            </span>
+                            <span>
+                                Editar productos
+                            </span>
+                        </a>
+
+                        <a class="button is-fullwidth selector mb-3">
+                            <span class="icon">
+                                <i class="fas fa-cog"></i>
+                            </span>
+                            <span>
+                                Configuración de tienda
+                            </span>
+                        </a>
+
+                        <a class="button is-fullwidth selector mb-3">
+                            <span class="icon">
+                                <i class="fas fa-file-alt"></i>
+                            </span>
+                            <span>
+                                Información de tienda
+                            </span>
+                        </a>
+
+                        <a class="button is-fullwidth selector mb-3">
+                            <span class="icon">
+                                <i class="fas fa-qrcode"></i>
+                            </span>
+                            <span>
+                                Codigo QR
+                            </span>
+                        </a>
+
+                        <a class="button is-fullwidth selector mb-3">
+                            <span class="icon">
+                                <i class="fas fa-eye"></i>
+                            </span>
+                            <span>
+                                Ver tienda
+                            </span>
+                        </a>
+
+                        <a class="button is-fullwidth selector">
+                            <span class="icon">
+                                <i class="fas fa-share-square"></i>
+                            </span>
+                            <span>
+                                Compartir
+                            </span>
+                        </a>
+
+                        <!-- End Button section -->
+
+                    </div>
+                </div>
+
+            </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+    <!-- End Store options modal -->
+    
+    <footer>
+        <script>
+    
+            $(document).ready(function() {
         
+                $('.card').click(function(e){
+                    let store_name = $(this).find('.title').text()
+                    let store_address = $(this).find('.store-address').text()
+                    let store_imagge = $(this).find('.thumbnail').attr('src')
+
+                    $('#restaurant-options').addClass('is-active')
+                    $('#restaurant-options .title').text(store_name)
+                    $('#restaurant-options .store-address').text(store_address)
+                    $('#restaurant-options .thumbnail').attr('src', store_imagge)
+                });
+        
+                $('.modal-close, .modal-background').click(function(e){
+                    $(this).closest('.modal').removeClass('is-active')
+                });
+        
+            });
+        
+        </script>
+    </footer>
     
 {% endblock dash_content %}
     

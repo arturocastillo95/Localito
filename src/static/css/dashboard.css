@@ -3,6 +3,12 @@ html,body {
     height: 100%;
 }
 
+
+.button.is-primary {
+    background-color: #EB775C !important;
+    box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.02);
+}
+
 .dashnav {
     position: fixed;
     background: rgb(153,51,89);
@@ -137,4 +143,18 @@ html,body {
 .card .level {
     position: absolute;
     bottom: 1em;
+}
+
+.selector {
+    color: #f3f3f3;
+    background-image: linear-gradient(0deg, rgba(153,51,89,1) 24%, rgba(235,119,92,1) 51%);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;  /* <- here it is */
+
+  }
+
+.selector:hover {
+    color: white;
+    background-color: #EB775C !important;
 }

@@ -84,8 +84,8 @@ html,body {
     opacity: 0.15;
   }
 
-  .is-primary {
-    background-color: #EB775C !important;
+.is-primary {
+  background-color: #EB775C !important;
 }
 
 .tabs li.is-active a {
