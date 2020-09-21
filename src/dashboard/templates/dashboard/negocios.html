@@ -24,7 +24,7 @@
 
     
     {% for restaurant_name, details in restaurants.items %}
-    <div class="card mb-5">
+    <div class="card mb-5" data-slug={{ details.2 }}>
         <div class="card-content card-store">
             <div class="media">
 
@@ -93,7 +93,7 @@
 
                             <div class="media-left">
                                 <figure class="image is-128x128">
-                                    <img class="thumbnail" src="image-temp.jpg" alt="" srcset="">
+                                    <img class="thumbnail" src="" alt="" srcset="">
                                 </figure>
                             </div>
 
@@ -166,7 +166,7 @@
                             </span>
                         </a>
 
-                        <a class="button is-fullwidth selector mb-3">
+                        <a href="" class="button is-fullwidth selector mb-3 view-button" target="_blank">
                             <span class="icon">
                                 <i class="fas fa-eye"></i>
                             </span>
@@ -198,16 +198,35 @@
         <script>
     
             $(document).ready(function() {
-        
-                $('.card').click(function(e){
-                    let store_name = $(this).find('.title').text()
-                    let store_address = $(this).find('.store-address').text()
-                    let store_imagge = $(this).find('.thumbnail').attr('src')
 
-                    $('#restaurant-options').addClass('is-active')
-                    $('#restaurant-options .title').text(store_name)
-                    $('#restaurant-options .store-address').text(store_address)
-                    $('#restaurant-options .thumbnail').attr('src', store_imagge)
+                let csrf_token = '{{ csrf_token }}';
+
+                $('.card').click(function(e){
+                    if (!$(this).closest('.modal').hasClass('is-active')) {
+                        let store_name = $(this).find('.title').text()
+                        let store_address = $(this).find('.store-address').text()
+                        let store_imagge = $(this).find('.thumbnail').attr('src')
+                        let store_slug = $(this).attr('data-slug')
+
+                        $('#restaurant-options .title').text(store_name)
+                        $('#restaurant-options .store-address').text(store_address)
+                        $('#restaurant-options .thumbnail').attr('src', store_imagge)
+                        
+                        $.ajax({
+                            url: '{% url "getModalURL" %}',
+                            data: {
+                                'store': store_slug,  
+                                'csrfmiddlewaretoken': csrf_token,
+                            },
+                            type: 'get',
+                            success: function(response) {
+                                $('.view-button').attr('href', response.store_URL)
+                            },
+
+                        })
+                        $('#restaurant-options').addClass('is-active')
+                    }
+
                 });
         
                 $('.modal-close, .modal-background').click(function(e){
