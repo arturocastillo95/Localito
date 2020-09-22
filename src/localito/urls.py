@@ -22,7 +22,6 @@ from restaurants.views import (
     lastStepFormView,
 )
 from pagemanager.views import homeScreenView
-from dashboard.views import dashboardView, getModalURL
 from account.views import registerView, logoutView, loginView
 
 #Images config
@@ -31,7 +30,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('dashboard/', dashboardView, name='dashboard'),
+    path('dashboard/', include('dashboard.urls')),
     path('', homeScreenView, name="home"),
     path('registro/', registerView, name='register'),
     path('logout/', logoutView, name='logout'),
@@ -40,7 +39,6 @@ urlpatterns = [
     path('<str:restaurant>/cart/', cartView, name='cart'),
     path('<str:restaurant>/checkout/id=<int:orderId>', lastStepFormView, name='checkout'),
     path('ajax/', include('restaurants.urls')),
-    path('dashboard/ajax/modalurls', getModalURL, name='getModalURL')
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

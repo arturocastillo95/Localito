@@ -28,5 +28,15 @@ def getModalURL(request):
         store_slug = request.GET.get('store')
         store_url = reverse('restaurant', args=(store_slug,))
         share_url = request.build_absolute_uri(store_url)
-        print(share_url)
-        return JsonResponse({'store_URL': store_url, 'share_URL': share_url}, status=200)
+        qr_url = reverse('qrDownload', args=(store_slug,))
+        return JsonResponse({'store_URL': store_url, 'share_URL': share_url, 'qr_URL': qr_url}, status=200)
+
+@login_required
+def qrDownloadView(request, slug):
+    restaurant = Restaurant.objects.get(slug=slug)
+    context = {
+        'qr_url': restaurant.qr_code.url,
+        'store_name': restaurant.name,
+        }
+    return render(request, 'dashboard/qr_download.html', context)
+

@@ -10,6 +10,7 @@ from django.urls import reverse
 from io import BytesIO
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.files import File
+import os
 
 
 
@@ -37,14 +38,22 @@ class Restaurant(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
-        
-        memfile = BytesIO()
+        try:
+            url = self.qr_code.url
+            image_path = urlparse(url)
+            file_name = os.path.basename(image_path.path)
 
-        qr = pyqrcode.QRCode(self.storeURL)
-        qr.png(memfile, scale=10)
-        self.qr_code.save(self.slug + '.png', File(memfile), save=False)
-        super(Restaurant, self).save(*args, **kwargs)
-        memfile.close()
+            if self.slug not in file_name:
+                raise Exception()
+
+        except:
+            memfile = BytesIO()
+
+            qr = pyqrcode.QRCode(self.storeURL)
+            qr.png(memfile, scale=10)
+            self.qr_code.save(self.slug + '.png', File(memfile), save=False)
+            super(Restaurant, self).save(*args, **kwargs)
+            memfile.close()
 
 
     def get_social_links(self):

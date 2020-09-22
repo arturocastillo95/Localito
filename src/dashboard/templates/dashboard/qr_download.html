@@ -1,0 +1,33 @@
+{% extends 'dashboard/base_dash.html' %}
+{% load static %}
+
+{% block title %}
+    Mis negocios | Localito
+{% endblock title %}
+
+{% block dash_title %}
+<div style="display: flex; align-items: center;">
+    <a href="{% url 'dashboard' %}">Mis negocios</a>&nbsp;&nbsp;
+    <span class="icon">
+    <i class="fas fa-angle-right"></i>
+    </span>&nbsp;&nbsp;
+    Código QR
+</div>
+{% endblock dash_title %}
+
+
+{% block dash_description %}
+    <span class="icon is-small">
+        <i class="fas fa-hand-point-up"></i>
+    </span>
+
+    Descarga el codigo QR para tu tienda
+{% endblock dash_description %}
+
+
+{% block dash_content %}
+    <div class="container has-text-centered">
+        <img src={{ qr_url }} alt="">
+    </div>
+{% endblock dash_content %}
+    

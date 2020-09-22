@@ -5,6 +5,7 @@ from django.contrib import admin
 from account.models import Account
 from django.contrib.auth.admin import UserAdmin
 
+from django.contrib.sites.models import Site
 # Register your models here.
 
 class AccountAdmin(UserAdmin):
@@ -17,3 +18,13 @@ class AccountAdmin(UserAdmin):
     fieldsets = ()
 
 admin.site.register(Account, AccountAdmin)
+
+#Add sites module to admin to create urls
+admin.site.unregister(Site)
+class SiteAdmin(admin.ModelAdmin):
+    fields = ('id', 'name', 'domain')
+    readonly_fields = ('id',)
+    list_display = ('id', 'name', 'domain')
+    list_display_links = ('name',)
+    search_fields = ('name', 'domain')
+admin.site.register(Site, SiteAdmin)

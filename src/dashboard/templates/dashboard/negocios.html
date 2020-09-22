@@ -40,7 +40,7 @@
 
                 <div class="media-content">
                     <div class="content">
-                        <p class="title is-4 mb-2">{{ restaurant_name }}</p>
+                        <p class="title is-4 mb-2 is-size-5-mobile">{{ restaurant_name }}</p>
                         <p class="mb-2 store-address">{{ details.1 }}</p>
                     </div>
                     
@@ -157,7 +157,7 @@
                             </span>
                         </a>
 
-                        <a class="button is-fullwidth selector mb-3">
+                        <a id="qr-button" class="button is-fullwidth selector mb-3">
                             <span class="icon">
                                 <i class="fas fa-qrcode"></i>
                             </span>
@@ -239,6 +239,7 @@
                             success: function(response) {
                                 $('#view-button').attr('href', response.store_URL)
                                 $('#share-button').attr('data-fullurl', response.share_URL)
+                                $('#qr-button').attr('href', response.qr_URL)
                             },
 
                         })

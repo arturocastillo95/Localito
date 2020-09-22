@@ -3,6 +3,9 @@ html,body {
     height: 100%;
 }
 
+h1 a {
+    color: #EB775C !important;
+}
 
 .button.is-primary {
     background-color: #EB775C !important;
