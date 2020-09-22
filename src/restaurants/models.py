@@ -4,6 +4,13 @@ from django.utils.text import slugify
 from phonenumber_field.modelfields import PhoneNumberField
 from .symbols import symbols
 import urllib.parse
+import pyqrcode
+from PIL import Image
+from django.urls import reverse
+from io import BytesIO
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.files import File
+
 
 
 class Restaurant(models.Model):
@@ -22,9 +29,22 @@ class Restaurant(models.Model):
     whatsapp_number         = PhoneNumberField(blank=True)
     facebook_url            = models.URLField(max_length=60, blank=True, verbose_name="Link de Facebook")
     instagram_url           = models.URLField(max_length=60, blank=True, verbose_name="Link de Instagram")
+    qr_code                 = models.ImageField(upload_to='qr-codes', verbose_name='Código QR', blank=True, null=True)
 
     def __str__(self):
         return self.slug
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        
+        memfile = BytesIO()
+
+        qr = pyqrcode.QRCode(self.storeURL)
+        qr.png(memfile, scale=10)
+        self.qr_code.save(self.slug + '.png', File(memfile), save=False)
+        super(Restaurant, self).save(*args, **kwargs)
+        memfile.close()
 
 
     def get_social_links(self):
@@ -53,6 +73,16 @@ class Restaurant(models.Model):
         except:
             url = False
         return url
+    
+    @property
+    def storeURL(self):
+        request = None
+        domain = get_current_site(request).domain
+        url = 'http://' + domain + reverse('restaurant', args=(self.slug,))
+        print(url)
+        return url
+
+
 
 class Section(models.Model):
     restaurant              = models.ForeignKey(Restaurant, default=None, on_delete=models.CASCADE, blank=True)

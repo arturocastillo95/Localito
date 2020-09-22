@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from restaurants.models import Restaurant
 from django.contrib.auth.decorators import login_required
 from localito.custom_decorators import ajax_required
-from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.http import JsonResponse
 

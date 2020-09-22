@@ -36,8 +36,9 @@ SESSION_ENGINE = 'rotatesecretkey.sessions'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ['192.168.0.155']
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.0.155']
+SITE_ID = 1
+# ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     # My apps
 

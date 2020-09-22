@@ -34,6 +34,7 @@ html,body {
 
 .card {
     border-radius: 10px;
+    position: relative;
 }
 
 .dash-link svg {
@@ -105,6 +106,11 @@ html,body {
     .dash-item:last-child {
         margin-top: auto;
     }
+
+    .card .level {
+    position: absolute;
+    bottom: 1em;
+    }
     
 }
 
@@ -134,15 +140,15 @@ html,body {
     .hidden-mobile {
         display: none;
     }
+
+    .is-128x128{
+        width: 100px !important;
+        height: 100px !important;
+    }
 }
 
 .level a {
     color: gray;
-}
-
-.card .level {
-    position: absolute;
-    bottom: 1em;
 }
 
 .selector {
