@@ -16,9 +16,9 @@ import os
 
 class Restaurant(models.Model):
     owner                   = models.ForeignKey(Account, default=None, on_delete=models.CASCADE, blank=True)
-    name                    = models.CharField(max_length=60)
+    name                    = models.CharField(max_length=60, verbose_name='Nombre de tienda')
     slug                    = models.SlugField(unique=True, blank=True)
-    address                 = models.CharField(max_length=80, blank=True)
+    address                 = models.CharField(max_length=80, blank=True, verbose_name='Dirección')
     currency                = models.CharField(choices=symbols, max_length=30, default='USD')
     city                    = models.CharField(max_length=60, blank=True)
     country                 = models.CharField(max_length=60, blank=True)

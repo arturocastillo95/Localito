@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from localito.custom_decorators import ajax_required, must_be_owner
 from django.urls import reverse
 from django.http import JsonResponse
+from .forms import RestaurantInfoForm
 
 
 
@@ -27,7 +28,8 @@ def getModalURL(request):
         store_url = reverse('restaurant', args=(store_slug,))
         share_url = request.build_absolute_uri(store_url)
         qr_url = reverse('qrDownload', args=(store_slug,))
-        return JsonResponse({'store_URL': store_url, 'share_URL': share_url, 'qr_URL': qr_url}, status=200)
+        info_url = reverse('restaurantInfo', args=(store_slug,))
+        return JsonResponse({'store_URL': store_url, 'share_URL': share_url, 'qr_URL': qr_url, 'info_URL': info_url}, status=200)
 
 @login_required
 @must_be_owner
@@ -38,4 +40,33 @@ def qrDownloadView(request, restaurant):
         'store_name': restaurant.name,
         }
     return render(request, 'dashboard/qr_download.html', context)
+
+@login_required
+@must_be_owner
+def restaurantInfoView(request, restaurant):
+    context = {}
+    restaurant = Restaurant.objects.get(slug=restaurant)
+    if request.POST:
+        form = RestaurantInfoForm(request.POST)
+        form.instance = restaurant
+        if form.is_valid:
+            form.save()
+            return redirect('dashboard')
+        else:
+            context = {
+                'info_form': form,
+            }
+    else:
+        form = RestaurantInfoForm(
+            initial = {
+                'name': restaurant.name,
+                'address': restaurant.address
+            }
+        )
+    context = {
+        'info_form': form,
+        'store_name': restaurant.name,
+    }
+    return render(request, 'dashboard/restaurant_info.html', context)
+
 

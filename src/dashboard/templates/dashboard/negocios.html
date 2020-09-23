@@ -143,7 +143,7 @@
                             </span>
                         </a>
 
-                        <a class="button is-fullwidth selector mb-3">
+                        <a id="info-button" href="" class="button is-fullwidth selector mb-3">
                             <span class="icon">
                                 <i class="fas fa-file-alt"></i>
                             </span>
@@ -152,14 +152,14 @@
                             </span>
                         </a>
 
-                        <a class="button is-fullwidth selector mb-3">
+                        <!-- <a class="button is-fullwidth selector mb-3">
                             <span class="icon">
                                 <i class="fas fa-cog"></i>
                             </span>
                             <span>
                                 Configuración de tienda
                             </span>
-                        </a>
+                        </a> -->
 
                         <a id="qr-button" class="button is-fullwidth selector mb-3">
                             <span class="icon">
@@ -244,6 +244,7 @@
                                 $('#view-button').attr('href', response.store_URL)
                                 $('#share-button').attr('data-fullurl', response.share_URL)
                                 $('#qr-button').attr('href', response.qr_URL)
+                                $('#info-button').attr('href', response.info_URL)
                             },
 
                         })

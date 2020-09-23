@@ -86,13 +86,13 @@
                     <h2 class="subtitle">
                     Localito: tu propia aplicación para recibir pedidos, sin comisiónes.
                     </h2>
-                    <a href="" class="button is-rounded is-primary checkout-shadow">
+                    <a href={% url 'register' %} class="button is-rounded is-primary checkout-shadow">
                         <span class="icon">
                             <i class="fa fa-store"></i>
                         </span>
                         <span>Empieza gratis</span>
                     </a>
-                    <a href={% url 'restaurant' 'mi-restaurante' %}>
+                    <a href={% url 'restaurant' 'mi-restaurante' %} target="_blank">
                         <p class="py-3 is-size-6">Ver tienda demo</p>
                     </a>
                 </div>

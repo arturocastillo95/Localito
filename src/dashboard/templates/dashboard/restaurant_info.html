@@ -1,0 +1,70 @@
+{% extends 'dashboard/base_dash.html' %}
+
+{% block title %}
+    Mis negocios | Localito
+{% endblock title %}
+
+{% block home_class %}
+    is-active
+{% endblock home_class %}
+
+{% block dash_title %}
+<div style="display: flex; align-items: center;">
+    <a href="{% url 'dashboard' %}">Mis negocios</a>&nbsp;&nbsp;
+    <span class="icon">
+    <i class="fas fa-angle-right"></i>
+    </span>&nbsp;&nbsp;
+    Editar Información
+</div>
+{% endblock dash_title %}
+
+
+{% block dash_description %}
+
+
+
+{% endblock dash_description %}
+
+
+{% block dash_content %}
+
+    <div class="container" style="margin: 1rem;">
+        <form method="post">
+            {% csrf_token %}
+        
+            {% for non_field_error in info_form.non_field_errors %}
+            <div class="notification is-danger">{{ non_field_error }}</div>
+            {% endfor%}
+            
+            {% for field in info_form %}
+            <div class="field">
+            <label for="{{ field.id_for_label }}" class="label">{{field.label}}</label>
+            {{field}}
+            </div>
+            
+            {% if field.help_text %}
+            <p class="help" style="padding-bottom: 5px">{{field.help_text}}</p>
+            {% endif %}
+            
+            {% for error in field.errors %}
+            <p class="help is-danger" style="padding-bottom:5px">{{error}}</p>
+            {% endfor %}
+            
+            {% endfor %}
+
+            <div class="control">
+                <button class="button is-primary is-fullwidth mt-5" type='submit'>
+                    <span class="icon">
+                        <i class="fas fa-save"></i>
+                    </span>
+                    <span class="has-text-weight-bold">
+                        Guardar cambios
+                    </span>
+                </button>
+          </div>
+        </form>
+    </div>
+
+
+{% endblock dash_content %}
+    
