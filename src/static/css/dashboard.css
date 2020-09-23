@@ -74,6 +74,10 @@ h1 a {
     background-color: #673A5F;
 }
 
+.dash-item.is-active {
+    background-color: #673A5F !important;
+}
+
 .thumbnail{
     border-radius: 10px;
 }
@@ -166,4 +170,17 @@ h1 a {
 .selector:hover {
     color: white;
     background-color: #EB775C !important;
+}
+
+.qr-image {
+    width: 400px;
+}
+
+.download-qr {
+    width: 400px;
+    margin-top: 1rem;
+}
+
+.has-shadow {
+    box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.02);
 }

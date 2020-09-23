@@ -5,6 +5,10 @@
     Mis negocios | Localito
 {% endblock title %}
 
+{% block home_class %}
+    is-active
+{% endblock home_class %}
+
 {% block dash_title %}
 <div style="display: flex; align-items: center;">
     <a href="{% url 'dashboard' %}">Mis negocios</a>&nbsp;&nbsp;
@@ -26,8 +30,19 @@
 
 
 {% block dash_content %}
+    <h2 class="title is-3 is-6-mobile has-text-centered">{{ store_name }}</h2>
     <div class="container has-text-centered">
-        <img src={{ qr_url }} alt="">
+        <img class="qr-image has-shadow" src={{ qr_url }} alt="">
+        <br>
+        <a href={{ qr_url }} class="button is-primary download-qr" download="{{ store_name }}.png">
+            <span class="icon">
+                <i class="fas fa-download"></i>
+            </span>
+            <span>
+                Descargar
+            </span>
+        </a>
     </div>
+
 {% endblock dash_content %}
     
