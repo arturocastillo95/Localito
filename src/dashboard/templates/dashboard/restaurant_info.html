@@ -1,4 +1,5 @@
 {% extends 'dashboard/base_dash.html' %}
+{% load static %}
 
 {% block title %}
     Mis negocios | Localito
@@ -45,7 +46,13 @@
             <div class="container has-text-centered">
                 <div class="field">
                     <label for="{{ info_form.image.id_for_label }}" class="label profile-container pt-4 pb-6">
-                        <img id="image-preview" class="has-shadow" src={{ store_image }} alt="">
+                        
+                        {% if store_image %}
+                            <img id="image-preview" class="has-shadow" src={{ store_image }} alt="">
+                        {% else %}
+                            <img id="image-preview" class="has-shadow" src={% static 'images/logo-restaurant-default.jpg' %} alt="">
+                        {% endif %}
+                            
                         <div id="store-image" href="">
                             <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="200.000000pt" height="200.000000pt" viewBox="0 0 200.000000 200.000000" preserveAspectRatio="xMidYMid meet">
                                 <g transform="translate(0.000000,200.000000) scale(0.100000,-0.100000)" fill="#EB775C" stroke="none">
@@ -77,7 +84,7 @@
             
             {% endfor %}
 
-            <div class="control">
+            <div class="control" style="padding-bottom: 8rem;">
                 <button class="button is-primary is-fullwidth mt-5" type='submit'>
                     <span class="icon">
                         <i class="fas fa-save"></i>
@@ -98,7 +105,7 @@
                 <p class="modal-card-title">Cortar imagen</p>
                 <button id="close_image" class="delete" aria-label="close"></button>
             </header>
-            <section class="modal-card-body">
+            <section class="modal-card-body no-padding">
             
             <!-- Content ... -->
 
@@ -110,6 +117,9 @@
             </footer>
         </div>
     </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-load-image/5.14.0/load-image.all.min.js" integrity="sha512-HZg0q8NV+VTxnU6hdkK0rL+fSmTGCbXZ3mHjqCCi87St5QRdvXENfRxkMK692inskRsCPee07d7VwcKNWaByCQ==" crossorigin="anonymous"></script>
 
     <script>
         $(document).ready(function() {
@@ -123,8 +133,39 @@
                 e.unwrap();
             }
 
-            $("#id_image").change(function () {
-                console.log('image change')
+            $("#id_image").change(function(e) {
+                // e.preventDefault();
+                // e = e.originalEvent;
+                // var target = e.dataTransfer || e.target,
+                //     file = target && target.files && target.files[0],
+                //     options = {
+                //         canvas:true
+                //     };
+                // if (!file) {
+                //     return;
+                // }
+
+                // loadImage.parseMetaData(file, function(data) {
+                //     if (data.exif) {
+                //         options.orientation = data.exif.get('Orientation');
+                //     }
+
+                //     loadImage(
+                //         file,
+                //         function(canvas) {
+                //             var imgDataUrl = canvas.toDataURL("image/jpeg");
+                //             console.log(imgDataUrl);
+                //             console.log($('#image'))
+                //             var $img = $("#image").attr("src", imgDataUrl);
+                //             $('body').append($img);
+                //             $('#modalCrop').addClass("is-active")
+                //         },
+                //         options
+                //     )
+
+                // })
+
+
                 if (this.files && this.files[0]) {
                     var reader = new FileReader();
                     reader.onload = function (e) {
@@ -133,15 +174,18 @@
                     }
                     reader.readAsDataURL(this.files[0]);
                 }
+
             });
 
             $("#modalCrop").on("classChange", function () {
+                console.log('im ready')
                 $image = document.getElementById('image');
                 const cropper = new Cropper($image, {
-                    viewMode: 1,
+                    viewMode: 2,
                     aspectRatio: 1/1,
                     minCropBoxWidth: 200,
                     minCropBoxHeight: 200,
+                    // responsive: true,
                     ready: function () {
                         $image.cropper.setCanvasData(canvasData);
                         $image.cropper.setCropBoxData(cropBoxData);

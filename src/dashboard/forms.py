@@ -1,6 +1,6 @@
 from django import forms
 from restaurants.models import Restaurant
-from PIL import Image
+from PIL import Image, ImageOps
 from django.core.files import File
 
 class RestaurantInfoForm(forms.ModelForm):
@@ -27,6 +27,10 @@ class RestaurantInfoForm(forms.ModelForm):
 
         try:
             image = Image.open(photo.image)
+            
+            # Fix image orientation
+            image = ImageOps.exif_transpose(image)
+
             cropped_image = image.crop((x, y, width+x, height+y))
             resized_image = cropped_image.resize((250,250), Image.ANTIALIAS)
             resized_image.save(photo.image.path)
