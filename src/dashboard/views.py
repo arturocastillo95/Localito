@@ -60,7 +60,9 @@ def restaurantInfoView(request, restaurant):
         form = RestaurantInfoForm(
             initial = {
                 'name': restaurant.name,
-                'address': restaurant.address
+                'address': restaurant.address,
+                'city': restaurant.city,
+                'store_country': restaurant.store_country.code,
             }
         )
     context = {

@@ -64,11 +64,11 @@
             
             {% for field in info_form %}
                 
-                {% if field.id_for_label != 'id_image' %}                    
+                {% if field.id_for_label != 'id_image' and field.id_for_label != 'id_store_country' %}                    
                     <div class="field">
                         <label for="{{ field.id_for_label }}" class="label">{{field.label}}</label>
                         {{field}}
-                        </div>
+                    </div>
                         
                         {% if field.help_text %}
                         <p class="help" style="padding-bottom: 5px">{{field.help_text}}</p>
@@ -81,6 +81,13 @@
             
             {% endfor %}
 
+            <div class="field">
+                <label for={{ info_form.store_country.id_for_label }} class="label">{{ info_form.store_country.label }}</label>
+                <div class="select is-fullwidth">
+                    {{ info_form.store_country }}
+                </div>
+            </div>
+
             <div class="control">
                 <button class="button is-success is-fullwidth mt-5 has-shadow" type='submit'>
                     <span class="icon">
@@ -91,7 +98,7 @@
                     </span>
                 </button>
             </div>
-            
+
             <a href={% url 'dashboard' %} class="button is-danger is-fullwidth mt-4 has-shadow" style="margin-bottom: 8rem;">
                 <span class="icon">
                     <i class="fas fa-times"></i>

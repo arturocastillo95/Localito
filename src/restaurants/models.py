@@ -2,6 +2,7 @@ from django.db import models
 from account.models import Account
 from django.utils.text import slugify
 from phonenumber_field.modelfields import PhoneNumberField
+from django_countries.fields import CountryField
 from .symbols import symbols
 import urllib.parse
 import pyqrcode
@@ -22,6 +23,7 @@ class Restaurant(models.Model):
     currency                = models.CharField(choices=symbols, max_length=30, default='USD')
     city                    = models.CharField(max_length=60, blank=True)
     country                 = models.CharField(max_length=60, blank=True)
+    store_country           = CountryField(blank=True)
     postal_code             = models.CharField(max_length=60, blank=True)
     business_hours          = models.CharField(max_length=30, blank=True)
     image                   = models.ImageField(upload_to='restaurant-images', verbose_name='Logo de Restaurante', blank=True)

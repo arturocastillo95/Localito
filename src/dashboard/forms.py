@@ -2,11 +2,16 @@ from django import forms
 from restaurants.models import Restaurant
 from PIL import Image, ImageOps
 from django.core.files import File
+from django_countries.fields import CountryField
+from django_countries.widgets import CountrySelectWidget
+
 
 class RestaurantInfoForm(forms.ModelForm):
     name = forms.CharField(label="Nombre de tienda", widget=forms.TextInput(attrs={'class':'input'}))
     address = forms.CharField(label="Dirección", widget=forms.TextInput(attrs={'class':'input'}))
+    city = forms.CharField(label="Ciudad", widget=forms.TextInput(attrs={'class':'input'}))
     image = forms.ImageField(label="", widget=forms.FileInput(attrs={'class':'file-input-hidden'}),allow_empty_file=True, required=False)
+    store_country = CountryField().formfield(label="País")
     
     x = forms.FloatField(label="", widget=forms.HiddenInput(),required=False)
     y = forms.FloatField(label="",  widget=forms.HiddenInput(),required=False)
@@ -15,7 +20,7 @@ class RestaurantInfoForm(forms.ModelForm):
     
     class Meta:
         model = Restaurant
-        fields = ['image', 'x', 'y', 'height', 'width', 'name', 'address']
+        fields = ['image', 'x', 'y', 'height', 'width', 'name', 'address', 'city', 'store_country']
     
     def save(self):
         photo = super(RestaurantInfoForm, self).save()

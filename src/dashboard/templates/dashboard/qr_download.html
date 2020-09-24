@@ -30,18 +30,20 @@
 
 
 {% block dash_content %}
-    <h2 class="title is-3 is-6-mobile has-text-centered">{{ store_name }}</h2>
-    <div class="container has-text-centered">
-        <img class="qr-image has-shadow" src={{ qr_url }} alt="">
-        <br>
-        <a href={{ qr_url }} class="button is-primary download-qr" download="{{ store_name }}.png">
-            <span class="icon">
-                <i class="fas fa-download"></i>
-            </span>
-            <span>
-                Descargar
-            </span>
-        </a>
+    <div class="columns is-centered">
+        <div class="column is-half has-text-centered">
+            <h2 class="title is-3 is-6-mobile has-text-centered">{{ store_name }}</h2>
+            <img class="qr-image has-shadow" src={{ qr_url }} alt="">
+            <br>
+            <a href={{ qr_url }} class="button is-primary download-qr is-fullwidth" download="{{ store_name }}.png">
+                <span class="icon">
+                    <i class="fas fa-download"></i>
+                </span>
+                <span>
+                    Descargar
+                </span>
+            </a>
+        </div>
     </div>
 
 {% endblock dash_content %}
