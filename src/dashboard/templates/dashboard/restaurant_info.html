@@ -19,36 +19,61 @@
 {% endblock dash_title %}
 
 
-{% block dash_description %}
+{% block head %}
 
+<!-- Cropper JS to crop store image -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.7/cropper.min.js" integrity="sha512-N4T9zTrqZUWCEhVU2uD0m47ADCWYRfEGNQ+dx/lYdQvOn+5FJZxcyHOY68QKsjTEC7Oa234qhXFhjPGQu6vhqg==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.7/cropper.min.css" integrity="sha512-oG+0IPCSL2awaygM/2l1hPUgHDNnOWji9utPHodoAGbXwLH9yvgD7uRjFxdiKnDr+rx8ejxXYSsUBkcKFR7i0w==" crossorigin="anonymous"/>
 
-
-{% endblock dash_description %}
+{% endblock head %}    
 
 
 {% block dash_content %}
 
     <div class="container" style="margin: 1rem;">
-        <form method="post">
+        <h2 class="title is-4 has-text-centered">
+            {{ store_name }}
+        </h2>
+
+        <form method="post" enctype="multipart/form-data" id="formUpload">
             {% csrf_token %}
         
             {% for non_field_error in info_form.non_field_errors %}
             <div class="notification is-danger">{{ non_field_error }}</div>
             {% endfor%}
-            
-            {% for field in info_form %}
-            <div class="field">
-            <label for="{{ field.id_for_label }}" class="label">{{field.label}}</label>
-            {{field}}
+
+            <div class="container has-text-centered">
+                <div class="field">
+                    <label for="{{ info_form.image.id_for_label }}" class="label profile-container pt-4 pb-6">
+                        <img id="image-preview" class="has-shadow" src={{ store_image }} alt="">
+                        <div id="store-image" href="">
+                            <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="200.000000pt" height="200.000000pt" viewBox="0 0 200.000000 200.000000" preserveAspectRatio="xMidYMid meet">
+                                <g transform="translate(0.000000,200.000000) scale(0.100000,-0.100000)" fill="#EB775C" stroke="none">
+                                <path d="M787 1984 c-200 -44 -353 -128 -498 -273 -149 -150 -233 -305 -275 -512 -23 -115 -15 -351 16 -464 46 -169 134 -321 259 -446 122 -121 261 -204 428 -256 82 -25 101 -27 273 -27 145 -1 198 3 247 16 372 103 641 370 739 733 15 56 19 105 19 250 0 158 -3 190 -23 260 -50 173 -138 322 -261 446 -125 125 -277 213 -446 260 -106 29 -374 36 -478 13z m562 -611 c50 -49 91 -95 91 -103 0 -15 -97 -118 -103 -109 -1 2 -44 50 -95 105 -51 56 -92 105 -92 110 0 15 74 84 91 84 9 0 58 -39 108 -87z m-176 -214 l85 -95 -204 -211 -204 -211 -141 -47 c-77 -26 -143 -45 -146 -42 -10 10 40 202 68 263 22 48 62 94 189 225 89 90 178 183 197 207 35 41 37 42 53 25 10 -10 56 -61 103 -114z"/>
+                                </g>
+                            </svg>
+                        </div>
+                    </label>
+                    {{ info_form.image }}
+                </div>
             </div>
             
-            {% if field.help_text %}
-            <p class="help" style="padding-bottom: 5px">{{field.help_text}}</p>
-            {% endif %}
-            
-            {% for error in field.errors %}
-            <p class="help is-danger" style="padding-bottom:5px">{{error}}</p>
-            {% endfor %}
+            {% for field in info_form %}
+                
+                {% if field.id_for_label != 'id_image' %}                    
+                    <div class="field">
+                        <label for="{{ field.id_for_label }}" class="label">{{field.label}}</label>
+                        {{field}}
+                        </div>
+                        
+                        {% if field.help_text %}
+                        <p class="help" style="padding-bottom: 5px">{{field.help_text}}</p>
+                        {% endif %}
+                        
+                        {% for error in field.errors %}
+                        <p class="help is-danger" style="padding-bottom:5px">{{error}}</p>
+                    {% endfor %}    
+                {% endif %}
             
             {% endfor %}
 
@@ -61,10 +86,88 @@
                         Guardar cambios
                     </span>
                 </button>
-          </div>
+            </div>
         </form>
     </div>
 
+    <!-- Image crop view -->
+    <div class="modal" id="modalCrop">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Cortar imagen</p>
+                <button id="close_image" class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+            
+            <!-- Content ... -->
+
+                <img src="" id="image" style="max-width: 100%;">
+            </section>
+            <footer class="modal-card-foot">
+            <button id="save_avatar"class="button is-success">Guardar</button>
+            <button id="close_avatar" class="button">Cancelar</button>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+
+            var $image = document.getElementById('image');
+            var cropBoxData;
+            var canvasData;
+
+            window.reset = function(e) {
+                e.wrap('<form>').closest('form').get(0).reset();
+                e.unwrap();
+            }
+
+            $("#id_image").change(function () {
+                console.log('image change')
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#image").attr("src", e.target.result);
+                        $('#modalCrop').addClass("is-active").trigger('classChange');
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+
+            $("#modalCrop").on("classChange", function () {
+                $image = document.getElementById('image');
+                const cropper = new Cropper($image, {
+                    viewMode: 1,
+                    aspectRatio: 1/1,
+                    minCropBoxWidth: 200,
+                    minCropBoxHeight: 200,
+                    ready: function () {
+                        $image.cropper.setCanvasData(canvasData);
+                        $image.cropper.setCropBoxData(cropBoxData);
+                    }
+                });
+            })
+
+            $("#save_avatar").click(function() {
+                var cropData = $image.cropper.getData();
+                $('#id_x').val(cropData['x'])
+                $('#id_y').val(cropData['y'])
+                $('#id_width').val(cropData['width'])
+                $('#id_height').val(cropData['height'])
+
+                $('#modalCrop').removeClass("is-active");
+
+                var croppedimage = $image.cropper.getCroppedCanvas().toDataURL("image/png");
+                $('#image-preview').attr('src', croppedimage)
+
+                cropBoxData = $image.cropper.getCropBoxData();
+                canvasData = $image.cropper.getCanvasData();
+                $image.cropper.destroy();
+	        });
+
+        })
+    </script>
 
 {% endblock dash_content %}
     

@@ -47,7 +47,7 @@ def restaurantInfoView(request, restaurant):
     context = {}
     restaurant = Restaurant.objects.get(slug=restaurant)
     if request.POST:
-        form = RestaurantInfoForm(request.POST)
+        form = RestaurantInfoForm(request.POST, request.FILES)
         form.instance = restaurant
         if form.is_valid:
             form.save()
@@ -66,6 +66,7 @@ def restaurantInfoView(request, restaurant):
     context = {
         'info_form': form,
         'store_name': restaurant.name,
+        'store_image': restaurant.imageURL,
     }
     return render(request, 'dashboard/restaurant_info.html', context)
 

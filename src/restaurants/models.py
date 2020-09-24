@@ -38,22 +38,24 @@ class Restaurant(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
-        try:
-            url = self.qr_code.url
-            image_path = urlparse(url)
-            file_name = os.path.basename(image_path.path)
-
-            if self.slug not in file_name:
-                raise Exception()
-
-        except:
+        if not self.qr_code:
             memfile = BytesIO()
 
             qr = pyqrcode.QRCode(self.storeURL)
             qr.png(memfile, scale=10)
             self.qr_code.save(self.slug + '.png', File(memfile), save=False)
             super(Restaurant, self).save(*args, **kwargs)
+            print('generated QR')
             memfile.close()
+
+        # try:
+        #     url = self.qr_code.url
+        #     image_path = urlparse(url)
+        #     file_name = os.path.basename(image_path.path)
+
+        #     if self.slug not in file_name:
+        #         print('oooh no')
+        #         raise Exception()
 
 
     def get_social_links(self):
@@ -88,7 +90,6 @@ class Restaurant(models.Model):
         request = None
         domain = get_current_site(request).domain
         url = 'http://' + domain + reverse('restaurant', args=(self.slug,))
-        print(url)
         return url
 
 
