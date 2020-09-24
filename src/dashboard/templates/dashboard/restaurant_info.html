@@ -11,11 +11,13 @@
 
 {% block dash_title %}
 <div style="display: flex; align-items: center;">
-    <a href="{% url 'dashboard' %}">Mis negocios</a>&nbsp;&nbsp;
-    <span class="icon">
-    <i class="fas fa-angle-right"></i>
-    </span>&nbsp;&nbsp;
-    Editar Información
+    <div style="flex-shrink: 0;">
+        <a href="{% url 'dashboard' %}">Mis negocios</a>&nbsp;&nbsp;
+        <span class="icon">
+        <i class="fas fa-angle-right"></i>
+        </span>&nbsp;&nbsp;
+        Información
+    </div>
 </div>
 {% endblock dash_title %}
 
@@ -33,7 +35,7 @@
             {{ store_name }}
         </h2>
 
-        <form method="post" enctype="multipart/form-data" id="formUpload">
+        <form method="post" enctype="multipart/form-data" id="formUpload" style="padding-bottom: 6rem;">
             {% csrf_token %}
         
             {% for non_field_error in info_form.non_field_errors %}
@@ -99,7 +101,7 @@
                 </button>
             </div>
 
-            <a href={% url 'dashboard' %} class="button is-danger is-fullwidth mt-4 has-shadow" style="margin-bottom: 8rem;">
+            <a href={% url 'dashboard' %} class="button is-danger is-fullwidth mt-4 has-shadow">
                 <span class="icon">
                     <i class="fas fa-times"></i>
                 </span>
