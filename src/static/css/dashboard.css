@@ -208,8 +208,6 @@ h1 a {
 
 .file-input-hidden {
     display: none;
-    /* position: absolute;
-    top: -200px; */
 }
 
 .modal-card-body.no-padding {
@@ -218,4 +216,17 @@ h1 a {
 
 #modalCrop {
     z-index: 1000;
+}
+
+/* Make cropper circle */
+.cropper-view-box {
+	box-shadow: 0 0 0 1px #39f;
+	border-radius: 50%;
+	outline: 0;
+}
+.cropper-face {
+	background-color:inherit !important;
+}
+.cropper-view-box {
+	outline:inherit !important;
 }

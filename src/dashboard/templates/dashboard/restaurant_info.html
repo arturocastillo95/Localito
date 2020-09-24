@@ -22,9 +22,6 @@
 
 {% block head %}
 
-<!-- Cropper JS to crop store image -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.7/cropper.min.js" integrity="sha512-N4T9zTrqZUWCEhVU2uD0m47ADCWYRfEGNQ+dx/lYdQvOn+5FJZxcyHOY68QKsjTEC7Oa234qhXFhjPGQu6vhqg==" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.7/cropper.min.css" integrity="sha512-oG+0IPCSL2awaygM/2l1hPUgHDNnOWji9utPHodoAGbXwLH9yvgD7uRjFxdiKnDr+rx8ejxXYSsUBkcKFR7i0w==" crossorigin="anonymous"/>
 
 {% endblock head %}    
 
@@ -84,8 +81,8 @@
             
             {% endfor %}
 
-            <div class="control" style="padding-bottom: 8rem;">
-                <button class="button is-primary is-fullwidth mt-5" type='submit'>
+            <div class="control">
+                <button class="button is-success is-fullwidth mt-5 has-shadow" type='submit'>
                     <span class="icon">
                         <i class="fas fa-save"></i>
                     </span>
@@ -94,6 +91,13 @@
                     </span>
                 </button>
             </div>
+            
+            <a href={% url 'dashboard' %} class="button is-danger is-fullwidth mt-4 has-shadow" style="margin-bottom: 8rem;">
+                <span class="icon">
+                    <i class="fas fa-times"></i>
+                </span>
+                <span>Cancelar</span>
+            </a>
         </form>
     </div>
 
@@ -112,14 +116,25 @@
                 <img src="" id="image" style="max-width: 100%;">
             </section>
             <footer class="modal-card-foot">
-            <button id="save_avatar"class="button is-success">Guardar</button>
-            <button id="close_avatar" class="button">Cancelar</button>
+            <button id="save_avatar"class="button is-success">
+                <span class="icon">
+                    <i class="fas fa-check"></i>
+                </span>
+                <span>Guardar</span>
+            </button>
+            <button id="close_avatar" class="button is-danger">
+                <span class="icon">
+                    <i class="fas fa-times"></i>
+                </span>
+                <span>Cancelar</span>
+            </button>
             </footer>
         </div>
     </div>
 
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-load-image/5.14.0/load-image.all.min.js" integrity="sha512-HZg0q8NV+VTxnU6hdkK0rL+fSmTGCbXZ3mHjqCCi87St5QRdvXENfRxkMK692inskRsCPee07d7VwcKNWaByCQ==" crossorigin="anonymous"></script>
+    <!-- Cropper JS to crop store image -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.7/cropper.min.js" integrity="sha512-N4T9zTrqZUWCEhVU2uD0m47ADCWYRfEGNQ+dx/lYdQvOn+5FJZxcyHOY68QKsjTEC7Oa234qhXFhjPGQu6vhqg==" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.7/cropper.min.css" integrity="sha512-oG+0IPCSL2awaygM/2l1hPUgHDNnOWji9utPHodoAGbXwLH9yvgD7uRjFxdiKnDr+rx8ejxXYSsUBkcKFR7i0w==" crossorigin="anonymous"/>
 
     <script>
         $(document).ready(function() {
@@ -208,7 +223,14 @@
                 cropBoxData = $image.cropper.getCropBoxData();
                 canvasData = $image.cropper.getCanvasData();
                 $image.cropper.destroy();
-	        });
+            });
+            
+            $('#close_image, #close_avatar, .modal-background').click(function() {
+                $('#modalCrop').removeClass("is-active");
+                reset($('#id_image'));
+                $image.cropper.destroy();
+
+            });
 
         })
     </script>
