@@ -36,7 +36,7 @@ SESSION_ENGINE = 'rotatesecretkey.sessions'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.155']
+ALLOWED_HOSTS = ['192.168.0.155', '127.0.0.1']
 SITE_ID = 1
 # ALLOWED_HOSTS = []
 
