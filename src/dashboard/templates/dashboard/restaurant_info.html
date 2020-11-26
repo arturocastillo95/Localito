@@ -158,38 +158,6 @@
             }
 
             $("#id_image").change(function(e) {
-                // e.preventDefault();
-                // e = e.originalEvent;
-                // var target = e.dataTransfer || e.target,
-                //     file = target && target.files && target.files[0],
-                //     options = {
-                //         canvas:true
-                //     };
-                // if (!file) {
-                //     return;
-                // }
-
-                // loadImage.parseMetaData(file, function(data) {
-                //     if (data.exif) {
-                //         options.orientation = data.exif.get('Orientation');
-                //     }
-
-                //     loadImage(
-                //         file,
-                //         function(canvas) {
-                //             var imgDataUrl = canvas.toDataURL("image/jpeg");
-                //             console.log(imgDataUrl);
-                //             console.log($('#image'))
-                //             var $img = $("#image").attr("src", imgDataUrl);
-                //             $('body').append($img);
-                //             $('#modalCrop').addClass("is-active")
-                //         },
-                //         options
-                //     )
-
-                // })
-
-
                 if (this.files && this.files[0]) {
                     var reader = new FileReader();
                     reader.onload = function (e) {

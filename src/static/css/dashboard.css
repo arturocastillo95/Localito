@@ -126,6 +126,7 @@ h1 a {
         bottom: 0;
         width: 100vw;
         height: 3.5rem;
+        overflow: hidden;
     }
     .dashnav-nav {
         flex-direction: row;

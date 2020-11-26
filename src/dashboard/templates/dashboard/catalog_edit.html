@@ -1,0 +1,59 @@
+{% extends 'dashboard/base_dash.html' %}
+{% load static %}
+
+{% block title %}
+    Mis negocios | Localito
+{% endblock title %}
+
+{% block catalog_class %}
+    is-active
+{% endblock catalog_class %}
+
+{% block dash_title %}
+<div style="display: flex; align-items: center;">
+    <a href="{% url 'dashboard' %}">{{ store_name }}</a>&nbsp;&nbsp;
+    <span class="icon">
+    <i class="fas fa-angle-right"></i>
+    </span>&nbsp;&nbsp;
+    Editar productos
+</div>
+{% endblock dash_title %}
+
+
+{% block head %}
+
+<link rel="stylesheet" href={% static 'css/products.css' %}>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.12.0/dist/sortable.umd.min.js"></script>
+
+{% endblock head %}
+
+    
+{% block dash_description %}
+    <span class="icon is-small">
+        <i class="fas fa-hand-point-up"></i>
+    </span>
+
+    Edita los productos de tu negocio
+{% endblock dash_description %}
+
+
+{% block dash_content %}
+    <div class="columns is-centered">
+
+        <div class="column is-full has-text-centered">
+            <ul id="items">
+                <li>item 1</li>
+                <li>item 2</li>
+                <li>item 3</li>
+            </ul>              
+        </div>
+
+    </div>
+
+    <script>
+        var el = document.getElementById("items");
+        var sortable = Sortable.create(el);
+    </script>
+
+{% endblock dash_content %}
+    
