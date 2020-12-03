@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from restaurants.models import Restaurant
+from restaurants.models import Restaurant, Section, Product
 from django.contrib.auth.decorators import login_required
 from localito.custom_decorators import ajax_required, must_be_owner
 from django.urls import reverse
@@ -81,4 +81,28 @@ def catalogEditView(request, restaurant):
     context = {
         'store_name': restaurant.name,
         }
+
+    try:
+        sections = Section.objects.filter(restaurant=restaurant)
+        sections = sections.order_by('order')
+        catalog = {}
+
+        for section in sections:
+            product_list = {}
+            try:
+                products = Product.objects.filter(section=section)
+                for product in products:
+                    product_list[product.name] = [product.description, product.price, product.id]
+                    if product.image:
+                        product_list[product.name].append(product.image.url)
+                catalog[section.name] = product_list
+            except Product.DoesNotExist:
+                pass
+
+        context['catalog'] = catalog
+
+    except Section.DoesNotExist:
+        pass
+
+
     return render(request, 'dashboard/catalog_edit.html', context)
