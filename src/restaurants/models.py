@@ -119,6 +119,7 @@ class Customer(models.Model):
     user                    = models.OneToOneField(Account, null=True, blank=True, on_delete=models.CASCADE)
     name                    = models.CharField(max_length=200, null=True)
     email                   = models.EmailField(max_length=60)
+    phone                   = PhoneNumberField(blank=True)
     address                 = models.CharField(max_length=200, null=True, blank=True)
     device                  = models.CharField(max_length=300, null=True, blank=True)
 

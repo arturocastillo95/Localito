@@ -63,49 +63,46 @@
     </div>
 
     <!-- Delivery selection -->
-    <div id="order-details" class="columns is-mobile is-variable is-1-mobile has-text-centered" data-order-id="{{ orderId }}">
-        <div class="column">
-            
-            {% if delivery %}
-            <a id="is-delivery" class="button is-small is-rounded is-success">
-            {% else %}
-            <a id="is-delivery" class="button is-small is-rounded">
-            {% endif %}
-                
-                <span class="icon">
-                    <i class="fas fa-motorcycle"></i>
-                </span>
-                <span>
-                    Enviar a domicilio
-                </span>
-            </a>
 
+    <div class="container has-text-centered pb-4">
+        <div id="order-details" class="columns is-mobile is-variable is-1-mobile is-centered has-text-centered" data-order-id="{{ orderId }}">
+            <div class="column">
+        
+                {% if delivery %}
+                <a id="is-delivery" class="button is-small is-rounded is-success">
+                {% else %}
+                <a id="is-delivery" class="button is-small is-rounded">
+                {% endif %}
+        
+                    <span class="icon">
+                        <i class="fas fa-motorcycle"></i>
+                    </span>
+                    <span>
+                        Enviar a domicilio
+                    </span>
+                </a>
+            </div>
+            <div class="column">
+                {% if delivery %}
+                <a id="is-pickup" class="button is-small is-rounded">
+                {% else %}
+                <a id="is-pickup" class="button is-small is-rounded is-success">
+                {% endif %}
+                    <span class="icon">
+                        <i class="fas fa-shopping-basket"></i>
+                    </span>
+                    <span>
+                        Recoger en la tienda
+                    </span>
+                </a>
+            </div>
         </div>
-
-        <div class="column">
-
-            {% if delivery %}
-            <a id="is-pickup" class="button is-small is-rounded">
-            {% else %}
-            <a id="is-pickup" class="button is-small is-rounded is-success">
-            {% endif %}
-
-                <span class="icon">
-                    <i class="fas fa-shopping-basket"></i>
-                </span>
-                <span>
-                    Recoger en la tienda
-                </span>
-            </a>
-
-        </div>
-
     </div>
 
 
     <section class="info is-medium is-fullheight">
         <div class="container">
-            <div class="column is-10 is-offset-1">
+            <div class="column">
 
                 <div class="card">
                     <div class="card-content">

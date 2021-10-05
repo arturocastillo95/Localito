@@ -13,7 +13,7 @@
     
     <!-- Bulma -->
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" crossorigin="anonymous" SameSite="none Secure"></script>
-    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 
     <!-- Style -->
     <link rel="stylesheet" href={% static 'css/restaurant.css' %}>
@@ -60,6 +60,7 @@
 
 </head>
 
+
 <body>
 
     <!-- Cart Button -->
@@ -104,63 +105,74 @@
 
 
     <!-- Header section -->
-    <section class="hero is-primary has-text-centered is-small">
+    <section class="hero is-primary is-small">
         <div class="hero-body ">
             <div class="container">
-                
-                {% if image %}
-                    <img src={{ image }} alt="" class="restaurant-img mb-2">
-                {% else %}
-                    <img src={% static 'images/logo-restaurant-default.jpg' %} alt="" class="restaurant-img mb-2">
-                {% endif %}
 
-                <h1 class="title is-4">
-                    {{name}}
-                </h1>
-                
-                <!-- Location -->
-                
-                {% if address %}
-                <div>
-                    <span class="icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </span>
-                    <span class="is-size-6">
-                        {{ address }}
-                    </span>
-                </div>
-                {% endif %}
-                    
-                <!-- Horario -->
-                
-                {% if business_hours %}
-                <div class="my-2">
-                    <span class="icon">
-                        <i class="fas fa-clock"></i>
-                    </span>
-                    <span class="is-size-6">
-                        {{ business_hours }}
-                    </span>
-                </div>
-                {% endif %}
+                <div class="header-columns">
+                    <div class="h-column">
 
-                <!-- Social Links -->
-                {% if social_links %}
-                <div class="level is-mobile icon-margin pt-3 mx-6">
-                    
-                    {% for tag, url in social_links.items %}
-                    <div class="level-item">
-                        <a href={{ url }}>
-                            <span class="icon is-small">
-                                <i class="fab fa-lg {{ tag }}"></i>
-                            </span>
-                        </a>
+                    {% if image %}
+                        <img src={{ image }} alt="" class="restaurant-img mb-2">
+                    {% else %}
+                        <img src={% static 'images/logo-restaurant-default.jpg' %} alt="" class="restaurant-img mb-2">
+                    {% endif %}
+
                     </div>
-                    {% endfor %}
-                </div>
-                {% endif %}
-                <!-- End social links -->
+
+                    <div class="h-column">
+
+                        <h1 class="title is-4">
+                            {{name}}
+                        </h1>
+                        
+                        <!-- Location -->
+                        
+                        {% if address %}
+                        <div>
+                            <span class="icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </span>
+                            <span class="is-size-6">
+                                {{ address }}
+                            </span>
+                        </div>
+                        {% endif %}
+                            
+                        <!-- Horario -->
+                        
+                        {% if business_hours %}
+                        <div class="my-2">
+                            <span class="icon">
+                                <i class="fas fa-clock"></i>
+                            </span>
+                            <span class="is-size-6">
+                                {{ business_hours }}
+                            </span>
+                        </div>
+                        {% endif %}
         
+                        <!-- Social Links -->
+                        {% if social_links %}
+                        <div class="level is-mobile icon-margin pt-3 mx-6">
+                            
+                            {% for tag, url in social_links.items %}
+                            <div class="level-item">
+                                <a href={{ url }}>
+                                    <span class="icon is-small">
+                                        <i class="fab fa-lg {{ tag }}"></i>
+                                    </span>
+                                </a>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        <!-- End social links -->
+                        
+                    </div>
+
+                </div>
+
             </div>
         </div>
     </section>
@@ -218,7 +230,7 @@
 
         <section class="info is-medium is-fullheight seccion-{{ section }}">
             <div class="container">
-                <div class="column is-10 is-offset-1">
+                <div class="column">
                     
                     {% if items %}
                     
