@@ -13,13 +13,13 @@
 
     <!-- Bulma -->
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css" integrity="sha512-IgmDkwzs96t4SrChW29No3NXBIBv8baW490zk5aXvhCD8vuZM3yUSkbyTBcXohkySecyzIrUwiF/qV0cuPcL3Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Style -->
     <link rel="stylesheet" href='{% static "css/restaurant.css" %}'>
     
     <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
     <!-- Phone Input -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/css/intlTelInput.css" integrity="sha512-gxWow8Mo6q6pLa1XH/CcH8JyiSDEtiwJV78E+D+QP0EVasFs8wKXq16G8CLD4CJ2SnonHr4Lm/yY2fSI2+cbmw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -27,6 +27,7 @@
 
     <!-- Paypal -->
     <script src="https://www.paypal.com/sdk/js?client-id=AZUjiK_UGGkbn4giigU1e1VNKZsNJzE-ijIyrtoUVwhNeXnGzfrNSVwpUeDFTgNsWaqhOVPttbocBcrC&currency=MXN"></script>
+    
 </head>
 
 <body>
@@ -122,7 +123,7 @@
                                 <h3 class="title is-5">Método de pago</h3>
 
                                 <div id='payment-methods-warning' class="notification is-warning is-light">
-                                    <p>Introduce tus datos para ver los métodos de pago</p>
+                                    <p>Ingresa tus datos para ver los métodos de pago</p>
                                 </div>
 
                                 <div id="payment-methods-selector" class="control">
@@ -177,46 +178,6 @@
 </body>
 
 <footer>
-    <!-- <script>
-        $(document).ready(function(){
-
-            let orderId = $('#orderInfo').attr('data-orderId');
-            let csrf_token = '{{ csrf_token }}';
-            let currency = $('html').attr('data-currency');
-
-            $('#id_name, #id_address, #id_notes').keyup(function(e) {
-                let len_name = $('#id_name').val().length;
-                let len_address = $('#id_address').val().length;
-                let name_val = $('#id_name').val();
-                let address_val = $('#id_address').val();
-                let notes_val = $('#id_notes').val();
-
-                if (len_name != 0 && len_address != 0) {
-                    $.ajax({
-                        url: '{% url "addDeliveryDetails" %}',
-                        type: 'post',
-                        data: {
-                            'customer_name': name_val,
-                            'customer_address': address_val,
-                            'notes': notes_val,
-                            'csrfmiddlewaretoken': csrf_token,
-                            'orderId': orderId,
-                        },
-                        success: function(response) {
-                            $('#whatsapp-link').attr('href', response.whats_url);
-                            $('#whatsapp-link').removeAttr('disabled');
-                            // $('#submit-button').prop('disabled', false);
-
-                        },
-
-                    });
-                    
-                };
-
-            });
-
-        });
-    </script> -->
 
     <script>
 
@@ -254,30 +215,6 @@
             let payment_warning = $('#payment-methods-warning');
             payment_element.addClass('is-hidden');
 
-            function successfull_purchase() {
-
-                redirect_url = ''
-
-                $.ajax({
-                            url: '{% url "order-success" %}',
-                            type: 'post',
-                            data: {
-                                'customer_name': name_val,
-                                'customer_address': address_val,
-                                'notes': notes_val,
-                                'csrfmiddlewaretoken': csrf_token,
-                                'orderId': orderId,
-                                'customer_phone': phoneInput.getNumber,
-                            },
-                            success: function(response) {
-                                redirect_url= response.url
-                            }
-                        });
-                
-                return redirect_url;
-
-            };
-
             paypal.Buttons({
                 
                 style: {
@@ -309,15 +246,27 @@
                         var transaction = orderData.purchase_units[0].payments.captures[0];
                         alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
 
-                        redirect_url = successfull_purchase()
-                        
-                        actions.redirect(redirect_url)
+                        var redirect_url = ''
 
-                    // When ready to go live, remove the alert and show a success message within this page. For example:
-                    // var element = document.getElementById('paypal-button-container');
-                    // element.innerHTML = '';
-                    // element.innerHTML = '<h3>Thank you for your payment!</h3>';
-                    // Or go to another URL:  actions.redirect('thank_you.html');
+                        $.ajax({
+                            url: '{% url "order-success" %}',
+                            type: 'post',
+                            data: {
+                                'customer_name': name_val,
+                                'customer_address': address_val,
+                                'notes': notes_val,
+                                'csrfmiddlewaretoken': csrf_token,
+                                'orderId': orderId,
+                                'customer_phone': phoneInput.getNumber(),
+                            },
+                            success: function(response) {
+                                redirect_url= response.url
+                                console.log(redirect_url)
+                                window.location.href = redirect_url
+                                // actions.redirect(redirect_url)
+                                }
+                        });
+
                     });
                 }
                 }).render('#paypal-button-container');

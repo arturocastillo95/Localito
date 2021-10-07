@@ -296,7 +296,7 @@ def order_success_view(request):
         customer_name = request.POST.get('customer_name')
         customer_addres = request.POST.get('customer_address')
         orderId = request.POST.get('orderId')
-        customer_phone = request.POST.get('phone')
+        customer_phone = request.POST.get('customer_phone')
         notes = request.POST.get('notes')
 
         customer = Customer.objects.get(device=device)
@@ -306,7 +306,7 @@ def order_success_view(request):
         customer.phone = customer_phone
         customer.address = customer_addres
         order.notes = notes
-        order.is_complete = True
+        order.complete = True
         order.is_payed = True
 
         customer.save()
@@ -319,8 +319,45 @@ def order_success_view(request):
 
         return JsonResponse({'url': thankyou_url}, status=200)
 
-def thankyou_view(request):
-    return HttpResponse('<h1>Thank you</h1>')
+def thankyou_view(request, restaurant, orderId):
+    context = {}
+    try:
+        restaurant = Restaurant.objects.get(slug=restaurant)
+        context = {
+            'name': restaurant.name,
+            'currency': restaurant.get_currency_display(),
+            'slug': restaurant.slug,
+        }
+
+        try:
+            device = request.COOKIES.get('device')
+            customer = Customer.objects.get(device=device)
+            order = Order.objects.get(customer=customer, restaurant=restaurant, complete=False)
+            all_products = order.get_order_products
+            delivery = 0
+            product_list = {}
+
+            for item in all_products:
+                quantity = item.quantity
+                if quantity > 0:
+                    item_name = str(quantity) + ' x ' + item.product.name
+                    product_list[item_name] = item.product.price * quantity
+
+            if order.is_delivery and restaurant.delivery_price > 0:
+                delivery = restaurant.delivery_price
+                context['delivery'] = restaurant.delivery_price
+
+            context['products'] = product_list
+            context['total'] = order.get_cart_total + delivery
+            context['orderId'] = order.id
+
+        except:
+            print('pass')
+
+        return render(request, 'restaurants/thank-you.html', context)
+
+    except Restaurant.DoesNotExist:
+        return redirect('home')
 
 
 

@@ -1,0 +1,111 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+{% autoescape off %}
+<html lang="es-mx" data-currency={{ currency }}>
+{% endautoescape %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Bulma -->
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css" integrity="sha512-IgmDkwzs96t4SrChW29No3NXBIBv8baW490zk5aXvhCD8vuZM3yUSkbyTBcXohkySecyzIrUwiF/qV0cuPcL3Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Style -->
+    <link rel="stylesheet" href='{% static "css/restaurant.css" %}'>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+</head>
+
+<style>
+    .animation-block {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .vcenter-card {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 50%;
+        max-width: 95%;
+    }
+
+    /* .container-thin-margin {
+        margin: 15px;
+    } */
+</style>
+
+<body>
+
+    <section class="hero is-fullheight">
+        <div class="container vcenter-card container-thin-margin">
+            <div class="column">
+                <div class="card">
+                    <div class="card-content">
+
+                        <div class="animation-block">
+                            <lottie-player src="https://assets2.lottiefiles.com/private_files/lf30_yo2zavgg.json"  background="transparent"  speed="1"  style="width: 120px; height: 120px;"  loop  autoplay></lottie-player>
+                        </div>
+
+                        <div class="has-text-centered">
+                            <h1 class="title">¡Gracias por tu compra en {{ name }}!</h1>
+                            <p class="subtitle is-5 has-text-success">Número de orden: {{ orderId }} </p>
+
+                            <p class="mb-5">En breve recibiras un mensaje con los detalles de tu pedido.</p>
+
+                        </div>
+
+                        <table class="table is-fullwidth">
+                            <tbody>
+                                {% autoescape off %}
+                                {% for product, price in products.items %}
+                                
+                                    <tr>
+                                        <td>{{ product }}</td>
+                                        <td align="right">{{ currency }}{{ price }}</td>
+                                    </tr>
+
+                                {% endfor %}
+
+                                
+                                {% if delivery %}
+                                <tr id='delivery-price'>
+                                    <td>Envío a domicilio</td>
+                                    <td align="right">{{ currency }}{{ delivery }}</td>
+                                </tr>
+                                
+                                {% else %}
+
+                                <tr id='delivery-price'>
+
+                                </tr>
+
+                                {% endif %}
+                                    
+
+                                <tfoot class="has-text-weight-bold">
+                                    <td>Total pagado</td>
+                                    <td id="cart-total" align="right">{{ currency }}{{ total }}</td>
+                                </tfoot>
+                                
+
+                                {% endautoescape %}
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+</body>
+</html>
