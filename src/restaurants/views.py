@@ -8,7 +8,7 @@ from .models import (
     Order,
     )
 from localito.settings import STATIC_DIR
-from django.http import JsonResponse
+from django.http import JsonResponse, request
 from html import unescape
 from django.utils.http import urlencode
 from .forms import (
@@ -16,6 +16,9 @@ from .forms import (
     orderNotesForm
     )
 from localito.custom_decorators import ajax_required
+from django.urls import reverse
+from django.http import HttpResponse
+
 
 
 # Create your views here.
@@ -210,6 +213,8 @@ def lastStepFormView(request, restaurant, orderId):
             'image': restaurant_obj.imageURL,
             'slug': restaurant_obj.slug,
             'orderId': order.id,
+            'order_total': order.get_cart_total,
+            'order_is_delivery': order.is_delivery
         }
         if order.complete:
             return redirect('restaurant', restaurant=restaurant)
@@ -283,8 +288,39 @@ def addDeliveryDetailsView(request):
 
         return JsonResponse({'whats_url': order.whatsapp_link}, status=200)
 
+@ajax_required
+def order_success_view(request):
+    print('POST')
+    if request.POST:
+        device = request.COOKIES.get('device')
+        customer_name = request.POST.get('customer_name')
+        customer_addres = request.POST.get('customer_address')
+        orderId = request.POST.get('orderId')
+        customer_phone = request.POST.get('phone')
+        notes = request.POST.get('notes')
 
+        customer = Customer.objects.get(device=device)
+        order = Order.objects.get(id=orderId)
 
+        customer.name = customer_name
+        customer.phone = customer_phone
+        customer.address = customer_addres
+        order.notes = notes
+        order.is_complete = True
+        order.is_payed = True
+
+        customer.save()
+        order.save()
+
+        store_slug = order.restaurant.slug
+        order_id = order.id
+
+        thankyou_url = reverse('thankyouorder', args=(store_slug, order_id))
+
+        return JsonResponse({'url': thankyou_url}, status=200)
+
+def thankyou_view(request):
+    return HttpResponse('<h1>Thank you</h1>')
 
 
 

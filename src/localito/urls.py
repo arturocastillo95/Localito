@@ -20,6 +20,7 @@ from restaurants.views import (
     restaurantView,
     cartView,
     lastStepFormView,
+    thankyou_view
 )
 from pagemanager.views import homeScreenView
 from account.views import registerView, logoutView, loginView
@@ -38,6 +39,7 @@ urlpatterns = [
     path('<str:restaurant>/', restaurantView, name='restaurant'),
     path('<str:restaurant>/cart/', cartView, name='cart'),
     path('<str:restaurant>/checkout/id=<int:orderId>', lastStepFormView, name='checkout'),
+    path('<str:restaurant>/thank-you/id=<int:orderId>', thankyou_view, name='thankyouorder'),
     path('ajax/', include('restaurants.urls')),
 ]
 

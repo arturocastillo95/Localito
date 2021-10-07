@@ -132,6 +132,7 @@ class Order(models.Model):
     date_ordered            = models.DateTimeField(auto_now_add=True)
     complete                = models.BooleanField(default=False)
     is_delivery             = models.BooleanField(default=True, null=True, blank=True)
+    is_payed                = models.BooleanField(default=False)
     notes                   = models.TextField(max_length=300, null=True, blank=True)
 
     def __str__(self):

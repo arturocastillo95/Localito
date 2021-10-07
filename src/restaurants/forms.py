@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import widgets
 from .models import (
     Restaurant,
     Product, 
@@ -29,15 +30,15 @@ from phonenumber_field.formfields import PhoneNumberField
 class submitOrderForm(forms.ModelForm):
     name = forms.CharField(max_length=60, label='Nombre', widget=forms.TextInput(attrs={'class':'input','autocomplete':'name'}))
     address = forms.CharField(max_length=60, label='Dirección de Entrega', widget=forms.TextInput(attrs={'class':'input','autocomplete':'address'}))
-    email = forms.EmailField(max_length=60, label='Correo Electronico (Opcional)', widget=forms.EmailInput(attrs={'class':'input','autocomplete':'email'}), required=False)
-    phone = PhoneNumberField(label='Número de WhatsApp', widget=forms.EmailInput(attrs={'class':'input','autocomplete':'tel'}))
+    # email = forms.EmailField(max_length=60, label='Correo Electronico (Opcional)', widget=forms.EmailInput(attrs={'class':'input','autocomplete':'email'}), required=False)
+    phone = PhoneNumberField(label='Número de WhatsApp', widget=forms.TextInput(attrs={'class':'input'}))
 
     class Meta:
         model = Customer
-        fields = ['name', 'address', 'email']
+        fields = ['name', 'address', 'phone']
 
 class orderNotesForm(forms.ModelForm):
-    notes = forms.CharField(label='Agregar notas para mi orden', widget=forms.Textarea(attrs={'class':'textarea', 'rows':'2'}), required=False)
+    notes = forms.CharField(label='Añadir nota', widget=forms.Textarea(attrs={'class':'textarea', 'rows':'2', 'placeholder':'Enviar salsa extra, más servilletas...'}), required=False)
     class Meta:
         model = Order
         fields = ['notes']

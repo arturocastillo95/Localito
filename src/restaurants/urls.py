@@ -9,6 +9,7 @@ from restaurants.views import (
     removeDeliveryView,
     lastStepFormView,
     addDeliveryDetailsView,
+    order_success_view
 )
 
 urlpatterns = [
@@ -18,4 +19,5 @@ urlpatterns = [
     path('add-delivery', addDeliveryView, name='addDelivery'),
     path('remove-delivery', removeDeliveryView, name='removeDelivery'),
     path('add-delivery-details', addDeliveryDetailsView, name='addDeliveryDetails'),
+    path('order-success', order_success_view, name='order-success')
 ]
